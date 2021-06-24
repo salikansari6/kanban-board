@@ -1,7 +1,13 @@
 import React from "react";
 import TaskCard from "../TaskCard/";
+import { TaskCardProps } from "../TaskCard/index";
+import InProgress from "../InProgress/index";
 
-const Kanban: React.FunctionComponent = () => {
+export interface KanbanProps {
+  tasks: TaskCardProps[];
+}
+
+const Kanban: React.FunctionComponent<KanbanProps> = ({ tasks }) => {
   return (
     <div className="kanban p-5 h-full flex flex-col items-center">
       <div className="title text-3xl text-center font-bold ">Kanban Board</div>
@@ -10,13 +16,24 @@ const Kanban: React.FunctionComponent = () => {
           <div className="to-do__title text-center text-xl font-bold p-2">
             To Do
           </div>
-          <TaskCard />
+          {tasks
+            .filter((task) => task.status === "to-do")
+            .map((task) => {
+              return (
+                <TaskCard
+                  key={task.id}
+                  id={task.id}
+                  title={task.title}
+                  description={task.description}
+                  priority={task.priority}
+                  status={task.status}
+                />
+              );
+            })}
         </div>
-        <div className="in-progress bg-yellow-100 flex flex-col items-center px-3">
-          <div className="in-progress__title text-center text-xl font-bold p-2">
-            In Progress
-          </div>
-        </div>
+        <InProgress
+          tasks={tasks.filter((task) => task.status === "in-progress")}
+        />
         <div className="done bg-green-300 flex flex-col items-center px-3">
           <div className="done__title text-center text-xl font-bold p-2">
             Done

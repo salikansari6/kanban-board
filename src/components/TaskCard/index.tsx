@@ -2,9 +2,26 @@ import React from "react";
 import { useDrag } from "react-dnd";
 import itemTypes from "../../utils/itemType";
 
-const TaskCard: React.FunctionComponent = () => {
+export interface TaskCardProps {
+  title: string;
+  description: string;
+  id: string;
+  priority: string;
+  status: string;
+}
+
+const TaskCard: React.FunctionComponent<TaskCardProps> = ({
+  title,
+  description,
+  id,
+  priority,
+}) => {
   const [{ isDragging }, drag] = useDrag({
     type: itemTypes.CARD,
+    item: {
+      id: id,
+      type: itemTypes.CARD,
+    },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
@@ -17,11 +34,9 @@ const TaskCard: React.FunctionComponent = () => {
         isDragging ? "opacity-50" : ""
       } dnd-item bg-white w-full p-2 rounded shadow relative my-2`}
     >
-      <div className="dnd-item__title text-xl font-bold">Learn React</div>
-      <div className="dnd-item__description my-2">
-        Learn react-dnd library for react drag and drop
-      </div>
-      <div className="dnd-item__priority">Priotiy : High</div>
+      <div className="dnd-item__title text-xl font-bold">{title}</div>
+      <div className="dnd-item__description my-2">{description}</div>
+      <div className="dnd-item__priority">Priotiy : {priority}</div>
     </div>
   );
 };
