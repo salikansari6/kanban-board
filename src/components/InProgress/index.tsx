@@ -12,6 +12,7 @@ interface InProgressProps {
 interface itemType {
   id: string;
   type: string;
+  status: string;
 }
 
 const InProgress: React.FunctionComponent<InProgressProps> = ({ tasks }) => {
@@ -20,6 +21,9 @@ const InProgress: React.FunctionComponent<InProgressProps> = ({ tasks }) => {
   const [{ isOver }, drop] = useDrop({
     accept: itemTypes.CARD,
     drop: (item: itemType, monitor) => {
+      if (item.status === "in-progress") {
+        return;
+      }
       markAsInProgress(item.id);
     },
     collect: (monitor) => ({
@@ -37,10 +41,11 @@ const InProgress: React.FunctionComponent<InProgressProps> = ({ tasks }) => {
       <div className="in-progress__title text-center text-xl font-bold p-2">
         In Progress
       </div>
-      {tasks.map((task) => {
+      {tasks.map((task, index) => {
         return (
           <TaskCard
             key={task.id}
+            index={index}
             description={task.description}
             title={task.title}
             id={task.id}

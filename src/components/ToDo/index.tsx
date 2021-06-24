@@ -12,6 +12,7 @@ interface ToDoProps {
 interface itemType {
   id: string;
   type: string;
+  status: string;
 }
 const ToDo: React.FunctionComponent<ToDoProps> = ({ tasks }) => {
   const { markAsToDo } = useContext(TasksContext);
@@ -20,7 +21,10 @@ const ToDo: React.FunctionComponent<ToDoProps> = ({ tasks }) => {
     accept: itemTypes.CARD,
     drop: (item: itemType, monitor) => {
       console.log(item);
-      markAsToDo(item.id);
+
+      if (item.status !== "to-do") {
+        markAsToDo(item.id);
+      }
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -39,12 +43,13 @@ const ToDo: React.FunctionComponent<ToDoProps> = ({ tasks }) => {
       </div>
       {tasks
         .filter((task: TaskCardProps) => task.status === "to-do")
-        .map((task: TaskCardProps) => {
+        .map((task: TaskCardProps, index) => {
           return (
             <TaskCard
               key={task.id}
               id={task.id}
               title={task.title}
+              index={index}
               description={task.description}
               priority={task.priority}
               status={task.status}

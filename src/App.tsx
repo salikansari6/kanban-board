@@ -8,6 +8,7 @@ import { TaskCardProps } from "./components/TaskCard";
 export const TasksContext = React.createContext({
   markAsInProgress: function (id: string) {},
   markAsToDo: function (id: string) {},
+  moveItem: function (draggedOverIndex: number, hoveredOverIndex: number) {},
 });
 
 function App() {
@@ -66,9 +67,19 @@ function App() {
     }
   };
 
+  const moveItem = (draggedOverIndex: number, hoveredOverIndex: number) => {
+    setTasks(() => {
+      const newItems = tasks.filter(
+        (task, index) => index !== draggedOverIndex
+      );
+      newItems.splice(hoveredOverIndex, 0, tasks[draggedOverIndex]);
+      return [...newItems];
+    });
+  };
+
   return (
     <DndProvider backend={HTML5Backend}>
-      <TasksContext.Provider value={{ markAsInProgress, markAsToDo }}>
+      <TasksContext.Provider value={{ markAsInProgress, markAsToDo, moveItem }}>
         <div className="h-screen">
           <Kanban tasks={tasks} />
         </div>
