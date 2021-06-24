@@ -7,6 +7,7 @@ import { TaskCardProps } from "./components/TaskCard";
 
 export const TasksContext = React.createContext({
   markAsInProgress: function (id: string) {},
+  markAsToDo: function (id: string) {},
 });
 
 function App() {
@@ -61,10 +62,21 @@ function App() {
       })
     );
   };
+  const markAsToDo = (id: string) => {
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === id) {
+          return { ...task, status: "to-do" };
+        } else {
+          return task;
+        }
+      })
+    );
+  };
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <TasksContext.Provider value={{ markAsInProgress }}>
+      <TasksContext.Provider value={{ markAsInProgress, markAsToDo }}>
         <div className="h-screen">
           <Kanban tasks={tasks} />
         </div>
