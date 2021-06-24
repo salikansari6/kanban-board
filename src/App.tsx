@@ -52,14 +52,18 @@ function App() {
   ]);
 
   const markAsInProgress = (id: string) => {
-    const taskToBeChanged: any = tasks.find((task) => task.id === id);
-    taskToBeChanged.status = "in-progress";
-    setTasks(tasks.filter((task) => task.id !== id).concat(taskToBeChanged));
+    const taskToBeChanged = tasks.find((task) => task.id === id);
+    if (taskToBeChanged) {
+      taskToBeChanged.status = "in-progress";
+      setTasks(tasks.filter((task) => task.id !== id).concat(taskToBeChanged));
+    }
   };
   const markAsToDo = (id: string) => {
-    const taskToBeChanged: any = tasks.find((task) => task.id === id);
-    taskToBeChanged.status = "to-do";
-    setTasks(tasks.filter((task) => task.id !== id).concat(taskToBeChanged));
+    const taskToBeChanged = tasks.find((task) => task.id === id);
+    if (taskToBeChanged) {
+      taskToBeChanged.status = "to-do";
+      setTasks(tasks.filter((task) => task.id !== id).concat(taskToBeChanged));
+    }
   };
 
   return (
