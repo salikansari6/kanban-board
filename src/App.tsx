@@ -52,26 +52,14 @@ function App() {
   ]);
 
   const markAsInProgress = (id: string) => {
-    setTasks(
-      tasks.map((task) => {
-        if (task.id === id) {
-          return { ...task, status: "in-progress" };
-        } else {
-          return task;
-        }
-      })
-    );
+    const taskToBeChanged: any = tasks.find((task) => task.id === id);
+    taskToBeChanged.status = "in-progress";
+    setTasks(tasks.filter((task) => task.id !== id).concat(taskToBeChanged));
   };
   const markAsToDo = (id: string) => {
-    setTasks(
-      tasks.map((task) => {
-        if (task.id === id) {
-          return { ...task, status: "to-do" };
-        } else {
-          return task;
-        }
-      })
-    );
+    const taskToBeChanged: any = tasks.find((task) => task.id === id);
+    taskToBeChanged.status = "to-do";
+    setTasks(tasks.filter((task) => task.id !== id).concat(taskToBeChanged));
   };
 
   return (
