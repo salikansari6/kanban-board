@@ -49,10 +49,6 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = ({
   const [, drop] = useDrop({
     accept: itemTypes.CARD,
     hover: (item: itemType, monitor) => {
-      if (item.status !== status) {
-        return;
-      }
-
       if (!dndRef.current) {
         return;
       }
@@ -90,8 +86,9 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = ({
             item.columnIndex,
             columnIndex
           );
+          item.columnIndex = columnIndex;
+          item.index = hoveredOverIndex;
         }
-        item.index = hoveredOverIndex;
       }
     },
   });

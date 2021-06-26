@@ -15,18 +15,13 @@ const Kanban: React.FunctionComponent<KanbanProps> = ({ tasks }) => {
         {tasks.map((col, index) => {
           return (
             <Column
-              key={index}
+              key={col.title}
               columnIndex={index}
               tasks={col.items}
               title={col.title}
             />
           );
         })}
-        <div className="done bg-green-300 flex flex-col items-center px-3">
-          <div className="done__title text-center text-xl font-bold p-2">
-            Done
-          </div>
-        </div>
       </div>
     </div>
   );

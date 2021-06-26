@@ -26,9 +26,9 @@ const Column: React.FunctionComponent<ToDoProps> = ({
   const [{ isOver }, drop] = useDrop({
     accept: itemTypes.CARD,
     drop: (item: itemType, monitor) => {
-      if (item.status === "to-do") {
-        return;
-      }
+      // if (item.status === "to-do") {
+      //   return;
+      // }
       // markAsToDo(item.id);
     },
     collect: (monitor) => ({
@@ -38,7 +38,7 @@ const Column: React.FunctionComponent<ToDoProps> = ({
 
   return (
     <div
-      ref={drop}
+      // ref={drop}
       className={`to-do ${
         isOver ? "bg-red-200" : "bg-red-300"
       } flex flex-col items-center px-3`}
