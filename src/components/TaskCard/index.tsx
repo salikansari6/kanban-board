@@ -42,7 +42,7 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = ({
       type: itemTypes.CARD,
     },
     collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
+      isDragging: id === monitor.getItem()?.id,
     }),
   });
 
@@ -52,6 +52,8 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = ({
       if (!dndRef.current) {
         return;
       }
+      console.log(monitor.getItem());
+
       const hoveredOverIndex = index;
       const draggedOverIndex = item.index;
 
