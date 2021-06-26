@@ -10,18 +10,21 @@ export interface TaskCardProps {
   priority: string;
   status: string;
   index?: number;
+  columnIndex?: number;
 }
 interface itemType {
   id: string;
   title: string;
   index: number;
   status: string;
+  columnIndex: number;
 }
 
 const TaskCard: React.FunctionComponent<TaskCardProps> = ({
   title,
   description,
   id,
+  columnIndex,
   status,
   index,
   priority,
@@ -35,6 +38,7 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = ({
       title,
       index: index,
       status: status,
+      columnIndex: columnIndex,
       type: itemTypes.CARD,
     },
     collect: (monitor) => ({
@@ -45,6 +49,10 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = ({
   const [, drop] = useDrop({
     accept: itemTypes.CARD,
     hover: (item: itemType, monitor) => {
+      if (item.status !== status) {
+        return;
+      }
+
       if (!dndRef.current) {
         return;
       }
@@ -75,42 +83,14 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = ({
           return;
         }
 
-        moveItem(draggedOverIndex, hoveredOverIndex);
-        item.index = hoveredOverIndex;
-      }
-    },
-    drop: (item: itemType, monitor) => {
-      if (!dndRef.current) {
-        return;
-      }
-      const hoveredOverIndex = index;
-      const draggedOverIndex = item.index;
-
-      //if hovered item is same as dragged item we do nothing
-      if (draggedOverIndex === hoveredOverIndex) {
-        return;
-      }
-
-      //getting the dimensions of card which is being hovered over
-      const hoveredCardDimensions = dndRef.current.getBoundingClientRect();
-      const hoveredCardMiddle = hoveredCardDimensions.height / 2;
-      const mousePosition = monitor.getClientOffset();
-      if (mousePosition && hoveredOverIndex) {
-        const hoveredCardY = mousePosition.y - hoveredCardDimensions.top;
-        if (
-          draggedOverIndex < hoveredOverIndex &&
-          hoveredCardY < hoveredCardMiddle
-        ) {
-          return;
+        if (columnIndex != null) {
+          moveItem(
+            draggedOverIndex,
+            hoveredOverIndex,
+            item.columnIndex,
+            columnIndex
+          );
         }
-        if (
-          draggedOverIndex > hoveredOverIndex &&
-          hoveredCardY < hoveredCardMiddle
-        ) {
-          return;
-        }
-
-        moveItem(draggedOverIndex, hoveredOverIndex);
         item.index = hoveredOverIndex;
       }
     },
