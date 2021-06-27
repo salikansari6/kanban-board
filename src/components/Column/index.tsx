@@ -14,8 +14,12 @@ interface ToDoProps {
 
 interface itemType {
   id: string;
-  type: string;
+  title: string;
+  index: number;
   status: string;
+  columnIndex: number;
+  description: string;
+  priority: string;
 }
 const Column: React.FunctionComponent<ToDoProps> = ({
   tasks,
@@ -23,15 +27,18 @@ const Column: React.FunctionComponent<ToDoProps> = ({
   columnColor,
   title,
 }) => {
-  const {} = useContext(TasksContext);
+  const { moveToColumn } = useContext(TasksContext);
 
   const [{ isOver }, drop] = useDrop({
     accept: itemTypes.CARD,
-    drop: (item: itemType, monitor) => {
-      // if (item.status === "to-do") {
-      //   return;
-      // }
-      // markAsToDo(item.id);
+    hover: (item: itemType, monitor) => {
+      if (columnIndex === item.columnIndex) {
+        return;
+      }
+
+      moveToColumn(item, item.columnIndex, columnIndex);
+      item.columnIndex = columnIndex;
+      item.index = tasks.length - 1;
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -40,7 +47,7 @@ const Column: React.FunctionComponent<ToDoProps> = ({
 
   return (
     <div
-      // ref={drop}
+      ref={drop}
       className={`to-do ${
         isOver ? `bg-${columnColor}-200` : `bg-${columnColor}-300`
       } flex flex-col items-center px-3`}

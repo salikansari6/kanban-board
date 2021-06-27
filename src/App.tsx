@@ -12,6 +12,11 @@ export const TasksContext = React.createContext({
     fromColumnIndex: number,
     toColumnIndex: number
   ) {},
+  moveToColumn: function (
+    item: TaskCardProps,
+    fromColumnIndex: number,
+    toColumnIndex: number
+  ) {},
 });
 
 export interface TaskGroup {
@@ -30,13 +35,24 @@ function App() {
   //     setTasks(tasks.filter((task) => task.id !== id).concat(taskToBeChanged));
   //   }
   // };
-  // const markAsToDo = (id: string) => {
-  //   const taskToBeChanged = tasks.find((task) => task.id === id);
-  //   if (taskToBeChanged) {
-  //     taskToBeChanged.status = "to-do";
-  //     setTasks(tasks.filter((task) => task.id !== id).concat(taskToBeChanged));
-  //   }
-  // };
+  const moveToColumn = (
+    item: TaskCardProps,
+    fromColumnIndex: number,
+    toColumnIndex: number
+  ) => {
+    // console.log(item);
+    setTasks((oldTasks) => {
+      let newTasks = JSON.parse(JSON.stringify(oldTasks));
+
+      newTasks[toColumnIndex].items.splice(
+        newTasks[toColumnIndex].items.length,
+        0,
+        newTasks[fromColumnIndex].items.splice(item.index, 1)[0]
+      );
+      // console.log(newTasks);
+      return newTasks;
+    });
+  };
 
   const moveItem = (
     draggedOverIndex: number,
@@ -58,7 +74,7 @@ function App() {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <TasksContext.Provider value={{ moveItem }}>
+      <TasksContext.Provider value={{ moveItem, moveToColumn }}>
         <div className="h-screen">
           <Kanban tasks={tasks} />
         </div>
