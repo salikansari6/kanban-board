@@ -32,13 +32,13 @@ const Column: React.FunctionComponent<ToDoProps> = ({
   const [{ isOver }, drop] = useDrop({
     accept: itemTypes.CARD,
     hover: (item: itemType, monitor) => {
+      console.log(item);
       if (columnIndex === item.columnIndex) {
         return;
       }
-
       moveToColumn(item, item.columnIndex, columnIndex);
       item.columnIndex = columnIndex;
-      item.index = tasks.length - 1;
+      item.index = tasks.length;
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
