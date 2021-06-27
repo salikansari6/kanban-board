@@ -2,7 +2,8 @@ import { v4 as uuid } from "uuid";
 
 export const data = [
   {
-    title: "to-do",
+    title: "To-Do",
+    columnColor: "red",
     items: [
       {
         id: uuid(),
@@ -44,7 +45,8 @@ export const data = [
     ],
   },
   {
-    title: "in-progress",
+    title: "In Progress",
+    columnColor: "yellow",
     items: [
       {
         id: uuid(),
@@ -73,6 +75,19 @@ export const data = [
         description: "React Master",
         priority: "low",
         status: "in-progress",
+      },
+    ],
+  },
+  {
+    title: "Done",
+    columnColor: "green",
+    items: [
+      {
+        id: uuid(),
+        title: "Create Kanban Board",
+        description: "Create kanban board with react-dnd library",
+        priority: "high",
+        status: "done",
       },
     ],
   },

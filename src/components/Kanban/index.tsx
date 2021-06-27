@@ -15,6 +15,7 @@ const Kanban: React.FunctionComponent<KanbanProps> = ({ tasks }) => {
         {tasks.map((col, index) => {
           return (
             <Column
+              columnColor={col.columnColor}
               key={col.title}
               columnIndex={index}
               tasks={col.items}

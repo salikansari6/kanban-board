@@ -8,6 +8,7 @@ import { TasksContext } from "../../App";
 interface ToDoProps {
   tasks: TaskCardProps[];
   columnIndex: number;
+  columnColor: string;
   title: string;
 }
 
@@ -19,6 +20,7 @@ interface itemType {
 const Column: React.FunctionComponent<ToDoProps> = ({
   tasks,
   columnIndex,
+  columnColor,
   title,
 }) => {
   const {} = useContext(TasksContext);
@@ -40,7 +42,7 @@ const Column: React.FunctionComponent<ToDoProps> = ({
     <div
       // ref={drop}
       className={`to-do ${
-        isOver ? "bg-red-200" : "bg-red-300"
+        isOver ? `bg-${columnColor}-200` : `bg-${columnColor}-300`
       } flex flex-col items-center px-3`}
     >
       <div className="to-do__title text-center text-xl font-bold p-2">

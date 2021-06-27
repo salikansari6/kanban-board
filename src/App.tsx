@@ -16,6 +16,7 @@ export const TasksContext = React.createContext({
 
 export interface TaskGroup {
   title: string;
+  columnColor: string;
   items: TaskCardProps[];
 }
 
