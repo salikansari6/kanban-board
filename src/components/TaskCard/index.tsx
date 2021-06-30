@@ -2,6 +2,7 @@ import React, { useRef, useContext } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { TasksContext } from "../../App";
 import itemTypes from "../../utils/itemType";
+import CardEditModal from "../CardEditModal/index";
 
 export interface TaskCardProps {
   title: string;
@@ -21,7 +22,7 @@ interface itemType {
 }
 
 const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
-  const { moveItem } = useContext(TasksContext);
+  const { moveItem, editCard } = useContext(TasksContext);
   const dndRef = useRef<HTMLDivElement>(null);
   const [{ isDragging }, drag] = useDrag({
     type: itemTypes.CARD,
@@ -94,6 +95,16 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
       <div className="dnd-item__title text-xl font-bold">{props.title}</div>
       <div className="dnd-item__description my-2">{props.description}</div>
       <div className="dnd-item__priority">Priotiy : {props.priority}</div>
+      <button
+        className="bg-red-500 p-2"
+        onClick={() => {
+          if (props.columnIndex !== undefined) {
+            editCard(props.id, props.columnIndex);
+          }
+        }}
+      >
+        Edit
+      </button>
     </div>
   );
 };

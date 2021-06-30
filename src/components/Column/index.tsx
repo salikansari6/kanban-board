@@ -6,6 +6,7 @@ import { useDrop } from "react-dnd";
 import itemTypes from "../../utils/itemType";
 import { TasksContext } from "../../App";
 import CardComposer from "../CardComposer/index";
+import CardEditModal from "../CardEditModal/index";
 
 interface ToDoProps {
   tasks: TaskCardProps[];
@@ -60,6 +61,7 @@ const Column: React.FunctionComponent<ToDoProps> = ({
         isOver ? `bg-${columnColor}-200` : `bg-${columnColor}-300`
       } flex flex-col items-center px-3`}
     >
+      {" "}
       <div className="to-do__title text-center text-xl font-bold p-2">
         {title}
       </div>
