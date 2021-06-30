@@ -20,31 +20,17 @@ interface itemType {
   columnIndex: number;
 }
 
-const TaskCard: React.FunctionComponent<TaskCardProps> = ({
-  title,
-  description,
-  id,
-  columnIndex,
-  status,
-  index,
-  priority,
-}) => {
+const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
   const { moveItem } = useContext(TasksContext);
   const dndRef = useRef<HTMLDivElement>(null);
   const [{ isDragging }, drag] = useDrag({
     type: itemTypes.CARD,
     item: {
-      id: id,
-      title,
-      index: index,
-      status: status,
-      columnIndex: columnIndex,
-      description:description,
-      priority:priority,
+      ...props,
       type: itemTypes.CARD,
     },
     collect: (monitor) => ({
-      isDragging: id === monitor.getItem()?.id,
+      isDragging: props.id === monitor.getItem()?.id,
     }),
   });
 
@@ -55,7 +41,7 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = ({
         return;
       }
 
-      const hoveredOverIndex = index;
+      const hoveredOverIndex = props.index;
       const draggedOverIndex = item.index;
 
       //if hovered item is same as dragged item we do nothing
@@ -67,7 +53,7 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = ({
       const hoveredCardDimensions = dndRef.current.getBoundingClientRect();
       const hoveredCardMiddle = hoveredCardDimensions.height / 2;
       const mousePosition = monitor.getClientOffset();
-      if (mousePosition && hoveredOverIndex) {
+      if (mousePosition && hoveredOverIndex !== undefined) {
         const hoveredCardY = mousePosition.y - hoveredCardDimensions.top;
         if (
           draggedOverIndex < hoveredOverIndex &&
@@ -82,14 +68,14 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = ({
           return;
         }
 
-        if (columnIndex != null) {
+        if (props.columnIndex != null) {
           moveItem(
             draggedOverIndex,
             hoveredOverIndex,
             item.columnIndex,
-            columnIndex
+            props.columnIndex
           );
-          item.columnIndex = columnIndex;
+          item.columnIndex = props.columnIndex;
           item.index = hoveredOverIndex;
         }
       }
@@ -105,9 +91,9 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = ({
         isDragging ? "opacity-50" : ""
       } dnd-item bg-white w-full p-3 rounded shadow relative my-2`}
     >
-      <div className="dnd-item__title text-xl font-bold">{title}</div>
-      <div className="dnd-item__description my-2">{description}</div>
-      <div className="dnd-item__priority">Priotiy : {priority}</div>
+      <div className="dnd-item__title text-xl font-bold">{props.title}</div>
+      <div className="dnd-item__description my-2">{props.description}</div>
+      <div className="dnd-item__priority">Priotiy : {props.priority}</div>
     </div>
   );
 };

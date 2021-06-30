@@ -1,9 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { TaskCardProps } from "../TaskCard/index";
 import TaskCard from "../TaskCard/index";
+import { v4 as uuid } from "uuid";
 import { useDrop } from "react-dnd";
 import itemTypes from "../../utils/itemType";
 import { TasksContext } from "../../App";
+import CardComposer from "../CardComposer/index";
 
 interface ToDoProps {
   tasks: TaskCardProps[];
@@ -27,7 +29,13 @@ const Column: React.FunctionComponent<ToDoProps> = ({
   columnColor,
   title,
 }) => {
-  const { moveToColumn } = useContext(TasksContext);
+  const { moveToColumn, handleAddCard } = useContext(TasksContext);
+  const [showCardComposer, setShowCardComposer] = useState(false);
+
+  const handleAddButtonClick = () => {
+    // handleAddCard(columnIndex, cardTitle);
+    setShowCardComposer(true);
+  };
 
   const [{ isOver }, drop] = useDrop({
     accept: itemTypes.CARD,
@@ -55,6 +63,18 @@ const Column: React.FunctionComponent<ToDoProps> = ({
       <div className="to-do__title text-center text-xl font-bold p-2">
         {title}
       </div>
+      <button
+        className={`self-start focus:outline-none hover:bg-${columnColor}-400 p-2 rounded`}
+        onClick={handleAddButtonClick}
+      >
+        + Add a card
+      </button>
+      {showCardComposer && (
+        <CardComposer
+          columnIndex={columnIndex}
+          setShowCardComposer={setShowCardComposer}
+        />
+      )}
       {tasks.map((task: TaskCardProps, index) => {
         return (
           <TaskCard
