@@ -22,6 +22,7 @@ export type TasksContextType = {
   handleAddCard: (columnIndex: number, card: string) => void;
   getTask: (id: string, columnIndex: number) => TaskCardProps | null;
   editCard: (id: string, columnIndex: number) => void;
+  closeModal: () => void;
 };
 
 export const TasksContext = React.createContext<TasksContextType>({
@@ -41,6 +42,7 @@ export const TasksContext = React.createContext<TasksContextType>({
     return null;
   },
   editCard: function (id: string, columnIndex: number) {},
+  closeModal: function () {},
 });
 
 export interface TaskGroup {
@@ -56,6 +58,11 @@ function App() {
     id: "",
     columnIndex: 0,
   });
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   const handleAddCard = (columnIndex: number, cardTitle: string) => {
     let newCard = {
       id: uuid(),
@@ -73,9 +80,7 @@ function App() {
   };
 
   const editCard = (id: string, columnIndex: number) => {
-    console.log(id);
     setShowModal(true);
-    console.log(showModal);
     setCurrentlyEditing({ id, columnIndex });
   };
 
@@ -125,15 +130,19 @@ function App() {
   return (
     <DndProvider backend={HTML5Backend}>
       <TasksContext.Provider
-        value={{ moveItem, moveToColumn, handleAddCard, getTask, editCard }}
+        value={{
+          moveItem,
+          moveToColumn,
+          handleAddCard,
+          getTask,
+          editCard,
+          closeModal,
+        }}
       >
         <div className="h-screen">
           <Kanban tasks={tasks} />
           <button onClick={() => setShowModal(true)}>click me</button>
-          <CardEditModal
-            showModal={showModal}
-            currentlyEditing={currentlyEditing}
-          />
+          {showModal && <CardEditModal currentlyEditing={currentlyEditing} />}
         </div>
       </TasksContext.Provider>
     </DndProvider>
