@@ -1,4 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  FormEventHandler,
+} from "react";
 import ReactDOM from "react-dom";
 import { TasksContext } from "../../App";
 import { TaskCardProps } from "../TaskCard/index";
@@ -34,17 +39,66 @@ const CardEditModal: React.FunctionComponent<CardEditModalProps> = ({
     }
   }, []);
 
+  const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    console.log("submit");
+  };
+
   return ReactDOM.createPortal(
     <div className="h-screen w-screen z-20 fixed top-0 left-0 right-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="modal-body p-2 h-1/2 w-1/2 bg-white">
-        <button onClick={closeModal}>Close</button>
-        <label htmlFor="title">Title</label>
-        <input
-          type="text"
-          name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+      <div className="modal-body text-2xl p-5 h-auto w-1/2 bg-white">
+        <form action="" className="" onSubmit={handleSubmit}>
+          <div className="input-group my-5    items-center">
+            <label htmlFor="title" className="font-medium">
+              Title
+            </label>
+            <input
+              type="text"
+              name="title"
+              className="border w-full mt-1 border-black  p-1"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+          <div className="input-group my-5    items-center">
+            <label htmlFor="descrption" className="font-medium">
+              Description
+            </label>
+            <input
+              type="text"
+              name="descrption"
+              className="border w-full mt-1 border-black  p-1"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+          <div className="input-group my-5    items-center">
+            <label htmlFor="priority" className="font-medium">
+              Priority
+            </label>
+            <input
+              type="text"
+              name="priority"
+              className="border w-full mt-1 border-black  p-1"
+              value={priority}
+              onChange={(e) => setPriority(e.target.value)}
+            />
+          </div>
+          <div className="buttons flex justify-end">
+            <button
+              type="submit"
+              className="shadow bg-green-500 p-2 rounded text-white mx-2"
+            >
+              Save Changes
+            </button>
+            <button
+              onClick={closeModal}
+              className="shadow  mx-2 bg-red-500 text-white rounded p-2 px-4"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
       </div>
     </div>,
     document.getElementById("card-edit-modal")!
