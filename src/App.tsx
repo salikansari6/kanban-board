@@ -6,6 +6,13 @@ import { v4 as uuid } from "uuid";
 import { data } from "./data";
 import { TaskCardProps } from "./components/TaskCard/index";
 import CardEditModal from "./components/CardEditModal/index";
+import { O_DIRECT } from "constants";
+
+type newValuesType = {
+  title: string;
+  description: string;
+  priority: string;
+};
 
 export type TasksContextType = {
   moveItem: (
@@ -21,8 +28,14 @@ export type TasksContextType = {
   ) => void;
   handleAddCard: (columnIndex: number, card: string) => void;
   getTask: (id: string, columnIndex: number) => TaskCardProps | null;
-  editCard: (id: string, columnIndex: number) => void;
+  editCard: (id: string, columnIndex: number, index: number) => void;
   closeModal: () => void;
+  editTask: (
+    columnIndex: number,
+    index: number,
+    id: string,
+    newValues: newValuesType
+  ) => void;
 };
 
 export const TasksContext = React.createContext<TasksContextType>({
@@ -41,8 +54,14 @@ export const TasksContext = React.createContext<TasksContextType>({
   getTask: function (id: string, columnIndex: number) {
     return null;
   },
-  editCard: function (id: string, columnIndex: number) {},
+  editCard: function (id: string, columnIndex: number, index: number) {},
   closeModal: function () {},
+  editTask: function (
+    columnIndex: number,
+    index: number,
+    id: string,
+    newValues: newValuesType
+  ) {},
 });
 
 export interface TaskGroup {
@@ -57,10 +76,43 @@ function App() {
   const [currentlyEditing, setCurrentlyEditing] = useState({
     id: "",
     columnIndex: 0,
+    index: 0,
   });
 
   const closeModal = () => {
     setShowModal(false);
+  };
+
+  const editTask = (
+    columnIndex: number,
+    index: number,
+    id: string,
+    newValues: newValuesType
+  ) => {
+    // console.log(newValues);
+    console.log(id);
+    setTasks((oldTasks) => {
+      const newTasks = JSON.parse(JSON.stringify(oldTasks));
+      newTasks[columnIndex].items = newTasks[columnIndex].items.map(
+        (t: TaskCardProps) => {
+          if (t.id !== id) {
+            return t;
+          }
+          console.log("reached");
+          console.log(`id: ${id} ,  t.id : ${t.id}`);
+          return {
+            ...t,
+            ...newValues,
+          };
+        }
+      );
+      console.log(newTasks);
+
+      return newTasks;
+    });
+
+    setShowModal(false);
+    // console.log(tasks);
   };
 
   const handleAddCard = (columnIndex: number, cardTitle: string) => {
@@ -79,9 +131,9 @@ function App() {
     });
   };
 
-  const editCard = (id: string, columnIndex: number) => {
+  const editCard = (id: string, columnIndex: number, index: number) => {
     setShowModal(true);
-    setCurrentlyEditing({ id, columnIndex });
+    setCurrentlyEditing({ id, columnIndex, index });
   };
 
   const getTask = (id: string, columnIndex: number): TaskCardProps | null => {
@@ -137,6 +189,7 @@ function App() {
           getTask,
           editCard,
           closeModal,
+          editTask,
         }}
       >
         <div className="h-screen">

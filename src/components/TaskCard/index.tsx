@@ -98,8 +98,8 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
       <button
         className="bg-red-500 p-2"
         onClick={() => {
-          if (props.columnIndex !== undefined) {
-            editCard(props.id, props.columnIndex);
+          if (props.columnIndex !== undefined && props.index !== undefined) {
+            editCard(props.id, props.columnIndex, props.index);
           }
         }}
       >

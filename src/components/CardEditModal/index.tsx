@@ -15,24 +15,32 @@ interface CardEditModalProps {
 type currentlyEditingType = {
   id: string;
   columnIndex: number;
+  index: number;
 };
 
 const CardEditModal: React.FunctionComponent<CardEditModalProps> = ({
   currentlyEditing,
 }) => {
-  const { getTask, closeModal } = useContext(TasksContext);
+  const { getTask, closeModal, editTask } = useContext(TasksContext);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("");
-  const [currentTask, setCurrentTask] = useState({
+  const [currentTask, setCurrentTask] = useState<TaskCardProps>({
     title: "",
     description: "",
     priority: "",
+    id: "",
+    status: "",
   });
 
   useEffect(() => {
     const task = getTask(currentlyEditing.id, currentlyEditing.columnIndex);
     if (task) {
+      setCurrentTask({
+        ...task,
+        index: currentlyEditing.index,
+        columnIndex: currentlyEditing.columnIndex,
+      });
       setTitle(task.title);
       setDescription(task.description);
       setPriority(task.priority);
@@ -41,7 +49,22 @@ const CardEditModal: React.FunctionComponent<CardEditModalProps> = ({
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log("submit");
+    let newValues = {
+      title,
+      description,
+      priority,
+    };
+    if (
+      currentTask.columnIndex !== undefined &&
+      currentTask.index !== undefined
+    ) {
+      editTask(
+        currentTask.columnIndex,
+        currentTask.index,
+        currentTask.id,
+        newValues
+      );
+    }
   };
 
   return ReactDOM.createPortal(
