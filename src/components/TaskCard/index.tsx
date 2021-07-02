@@ -92,7 +92,13 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
         isDragging ? "opacity-50" : ""
       } dnd-item bg-white w-full p-3 rounded shadow relative my-2`}
     >
-      <div className="dnd-item__title text-xl font-bold">{props.title}</div>
+      <div
+        className={`${
+          props.title === "" ? "opacity-30 " : ""
+        } dnd-item__title text-xl font-bold`}
+      >
+        {props.title === "" ? "Untitled" : props.title}
+      </div>
       <div className="dnd-item__description my-2">{props.description}</div>
       <div className="dnd-item__priority">Priotiy : {props.priority}</div>
       <button

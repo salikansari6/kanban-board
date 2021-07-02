@@ -34,7 +34,6 @@ const Column: React.FunctionComponent<ToDoProps> = ({
   const [showCardComposer, setShowCardComposer] = useState(false);
 
   const handleAddButtonClick = () => {
-    // handleAddCard(columnIndex, cardTitle);
     setShowCardComposer(true);
   };
 
