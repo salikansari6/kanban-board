@@ -5,14 +5,14 @@ import React, {
   FormEventHandler,
 } from "react";
 import ReactDOM from "react-dom";
-import { TasksContext } from "../../App";
+import { TasksContext } from "../../contexts/TasksContext";
 import { TaskCardProps } from "../TaskCard/index";
 
 interface CardEditModalProps {
   currentlyEditing: currentlyEditingType;
 }
 
-type currentlyEditingType = {
+export type currentlyEditingType = {
   id: string;
   columnIndex: number;
   index: number;

@@ -4,7 +4,7 @@ import TaskCard from "../TaskCard/index";
 import { v4 as uuid } from "uuid";
 import { useDrop } from "react-dnd";
 import itemTypes from "../../utils/itemType";
-import { TasksContext } from "../../App";
+import { TasksContext } from "../../contexts/TasksContext";
 import CardComposer from "../CardComposer/index";
 import CardEditModal from "../CardEditModal/index";
 

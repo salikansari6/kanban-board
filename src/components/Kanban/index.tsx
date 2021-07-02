@@ -1,7 +1,7 @@
 import React from "react";
 import { TaskCardProps } from "../TaskCard/index";
 import Column from "../Column";
-import { TaskGroup } from "../../App";
+import { TaskGroup } from "../../contexts/TasksContext";
 import CardEditModal from "../CardEditModal/index";
 
 export interface KanbanProps {

@@ -1,6 +1,6 @@
 import React, { useRef, useContext } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { TasksContext } from "../../App";
+import { TasksContext } from "../../contexts/TasksContext";
 import itemTypes from "../../utils/itemType";
 import CardEditModal from "../CardEditModal/index";
 

@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
-import { TasksContext } from "../../App";
+import { TasksContext } from "../../contexts/TasksContext";
 
 interface CardComposerProps {
   columnIndex: number;
