@@ -87,10 +87,15 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
 
   return (
     <div
+      onClick={() => {
+        if (props.columnIndex !== undefined && props.index !== undefined) {
+          editCard(props.id, props.columnIndex, props.index);
+        }
+      }}
       ref={dndRef}
       className={`${
         isDragging ? "opacity-50" : ""
-      } dnd-item bg-white w-full p-3 rounded shadow relative my-2`}
+      } dnd-item bg-white w-full p-3 rounded shadow relative my-2 cursor-pointer hover:bg-gray-100`}
     >
       <div
         className={`${
@@ -101,16 +106,7 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
       </div>
       <div className="dnd-item__description my-2">{props.description}</div>
       <div className="dnd-item__priority">Priotiy : {props.priority}</div>
-      <button
-        className="bg-yellow-200 p-2"
-        onClick={() => {
-          if (props.columnIndex !== undefined && props.index !== undefined) {
-            editCard(props.id, props.columnIndex, props.index);
-          }
-        }}
-      >
-        Edit
-      </button>
+
       <button
         className="bg-red-300 p-2 ml-2"
         onClick={() => {
