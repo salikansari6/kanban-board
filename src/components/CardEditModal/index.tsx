@@ -87,8 +87,7 @@ const CardEditModal: React.FunctionComponent<CardEditModalProps> = ({
             <label htmlFor="descrption" className="font-medium">
               Description
             </label>
-            <input
-              type="text"
+            <textarea
               name="descrption"
               className="border w-full mt-1 border-black  p-1"
               value={description}

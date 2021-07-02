@@ -22,7 +22,7 @@ interface itemType {
 }
 
 const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
-  const { moveItem, editCard } = useContext(TasksContext);
+  const { moveItem, editCard, deleteCard } = useContext(TasksContext);
   const dndRef = useRef<HTMLDivElement>(null);
   const [{ isDragging }, drag] = useDrag({
     type: itemTypes.CARD,
@@ -96,7 +96,7 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
       <div className="dnd-item__description my-2">{props.description}</div>
       <div className="dnd-item__priority">Priotiy : {props.priority}</div>
       <button
-        className="bg-red-500 p-2"
+        className="bg-yellow-200 p-2"
         onClick={() => {
           if (props.columnIndex !== undefined && props.index !== undefined) {
             editCard(props.id, props.columnIndex, props.index);
@@ -104,6 +104,16 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
         }}
       >
         Edit
+      </button>
+      <button
+        className="bg-red-300 p-2 ml-2"
+        onClick={() => {
+          if (props.columnIndex !== undefined && props.index !== undefined) {
+            deleteCard(props.id, props.columnIndex, props.index);
+          }
+        }}
+      >
+        Delete
       </button>
     </div>
   );

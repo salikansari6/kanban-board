@@ -36,6 +36,7 @@ export type TasksContextType = {
     id: string,
     newValues: newValuesType
   ) => void;
+  deleteCard: (id: string, columnIndex: number, index: number) => void;
 };
 
 export const TasksContext = React.createContext<TasksContextType>({
@@ -62,6 +63,7 @@ export const TasksContext = React.createContext<TasksContextType>({
     id: string,
     newValues: newValuesType
   ) {},
+  deleteCard: function (id: string, columnIndex: number, index: number) {},
 });
 
 export interface TaskGroup {
@@ -83,6 +85,18 @@ function App() {
     setShowModal(false);
   };
 
+  const deleteCard = (id: string, columnIndex: number, index: number) => {
+    setTasks((oldTasks) => {
+      const newTasks = JSON.parse(JSON.stringify(oldTasks));
+      newTasks[columnIndex].items = newTasks[columnIndex].items.filter(
+        (t: TaskCardProps) => {
+          return t.id !== id;
+        }
+      );
+      return newTasks;
+    });
+  };
+
   const editTask = (
     columnIndex: number,
     index: number,
@@ -98,16 +112,12 @@ function App() {
           if (t.id !== id) {
             return t;
           }
-          console.log("reached");
-          console.log(`id: ${id} ,  t.id : ${t.id}`);
           return {
             ...t,
             ...newValues,
           };
         }
       );
-      console.log(newTasks);
-
       return newTasks;
     });
 
@@ -190,6 +200,7 @@ function App() {
           editCard,
           closeModal,
           editTask,
+          deleteCard,
         }}
       >
         <div className="h-screen">
