@@ -1,8 +1,9 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef, useContext, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { TasksContext } from "../../contexts/TasksContext";
 import itemTypes from "../../utils/itemType";
 import CardEditModal from "../CardEditModal/index";
+import DeleteIcon from "../../assets/DeleteIcon";
 
 export interface TaskCardProps {
   title: string;
@@ -22,6 +23,8 @@ interface itemType {
 }
 
 const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
+  const [delIconColor, setDelIconColor] = useState("black");
+
   const { moveItem, editCard, deleteCard } = useContext(TasksContext);
   const dndRef = useRef<HTMLDivElement>(null);
   const [{ isDragging }, drag] = useDrag({
@@ -97,26 +100,34 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
         isDragging ? "opacity-50" : ""
       } dnd-item bg-white w-full p-3 rounded shadow relative my-2 cursor-pointer hover:bg-gray-100`}
     >
-      <div
-        className={`${
-          props.title === "" ? "opacity-30 " : ""
-        } dnd-item__title text-xl font-bold`}
-      >
-        {props.title === "" ? "Untitled" : props.title}
+      <div className="flex">
+        <div
+          className={`${
+            props.title === "" ? "opacity-30 " : ""
+          } dnd-item__title text-xl font-bold`}
+        >
+          {props.title === "" ? "Untitled" : props.title}
+        </div>
+        <button
+          className="border border-gray-400 rounded-lg p-1 shadow  ml-auto"
+          onMouseOver={(e) => {
+            setDelIconColor("red");
+          }}
+          onMouseOut={(e) => {
+            setDelIconColor("black");
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (props.columnIndex !== undefined && props.index !== undefined) {
+              deleteCard(props.id, props.columnIndex, props.index);
+            }
+          }}
+        >
+          <DeleteIcon color={delIconColor} />
+        </button>
       </div>
       <div className="dnd-item__description my-2">{props.description}</div>
       <div className="dnd-item__priority">Priotiy : {props.priority}</div>
-
-      <button
-        className="bg-red-300 p-2 ml-2"
-        onClick={() => {
-          if (props.columnIndex !== undefined && props.index !== undefined) {
-            deleteCard(props.id, props.columnIndex, props.index);
-          }
-        }}
-      >
-        Delete
-      </button>
     </div>
   );
 };
