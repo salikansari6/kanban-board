@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useRef, useEffect, useState, useContext } from "react";
 import { TasksContext } from "../../contexts/TasksContext";
 
@@ -22,6 +23,7 @@ const CardComposer: React.FunctionComponent<CardComposerProps> = ({
 
   const handleBlur = () => {
     handleAddCard(columnIndex, cardTitle);
+
     setShowCardComposer(false);
   };
 

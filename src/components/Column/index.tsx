@@ -9,6 +9,7 @@ import CardComposer from "../CardComposer/index";
 import CardEditModal from "../CardEditModal/index";
 
 interface ToDoProps {
+  _id: string;
   tasks: TaskCardProps[];
   columnIndex: number;
   columnColor: string;
@@ -26,6 +27,7 @@ interface itemType {
 }
 const Column: React.FunctionComponent<ToDoProps> = ({
   tasks,
+  _id,
   columnIndex,
   columnColor,
   title,

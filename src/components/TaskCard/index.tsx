@@ -3,6 +3,7 @@ import { useDrag, useDrop } from "react-dnd";
 import { TasksContext } from "../../contexts/TasksContext";
 import itemTypes from "../../utils/itemType";
 import CardEditModal from "../CardEditModal/index";
+import "./TaskCard.css";
 import DeleteIcon from "../../assets/DeleteIcon";
 
 export interface TaskCardProps {

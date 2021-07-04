@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { TaskCardProps } from "../components/TaskCard";
 import { v4 as uuid } from "uuid";
 import { data } from "../data/index";
@@ -73,19 +74,29 @@ export const TasksContext = React.createContext<TasksContextType>({
 });
 
 export interface TaskGroup {
+  _id: string;
   title: string;
   columnColor: string;
   items: TaskCardProps[];
 }
 
 const TasksContextProvider: React.FunctionComponent = ({ children }) => {
-  const [tasks, setTasks] = useState<TaskGroup[]>(data);
+  const [tasks, setTasks] = useState<TaskGroup[]>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [currentlyEditing, setCurrentlyEditing] = useState({
     id: "",
     columnIndex: 0,
     index: 0,
   });
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/tasks/60e09f13284d399fc26aa9a7")
+      .then((res) => {
+        setTasks(res.data[0].tasks);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const closeModal = () => {
     setShowModal(false);
@@ -110,7 +121,6 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
     newValues: newValuesType
   ) => {
     // console.log(newValues);
-    console.log(id);
     setTasks((oldTasks) => {
       const newTasks = JSON.parse(JSON.stringify(oldTasks));
       newTasks[columnIndex].items = newTasks[columnIndex].items.map(
@@ -139,12 +149,18 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
       priority: "low",
       status: "to-do",
     };
-    console.log(newCard);
+
+    let newTasks;
     setTasks((oldTasks) => {
-      const newTasks = JSON.parse(JSON.stringify(oldTasks));
+      newTasks = JSON.parse(JSON.stringify(oldTasks));
       newTasks[columnIndex].items.unshift(newCard);
       return newTasks;
     });
+    axios
+      .put("http://localhost:4000/tasks/60e1dfd482f02172e71a6225", {
+        tasks: newTasks,
+      })
+      .then((res) => console.log(res.data));
   };
 
   const editCard = (id: string, columnIndex: number, index: number) => {
