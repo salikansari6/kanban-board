@@ -157,8 +157,9 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
       return newTasks;
     });
     axios
-      .put("http://localhost:4000/tasks/60e1dfd482f02172e71a6225", {
-        tasks: newTasks,
+      .post("http://localhost:4000/tasks/add/60e09f13284d399fc26aa9a7", {
+        card: newCard,
+        columnIndex: columnIndex,
       })
       .then((res) => console.log(res.data));
   };
