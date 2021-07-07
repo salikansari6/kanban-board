@@ -16,7 +16,8 @@ export type TasksContextType = {
     draggedOverIndex: number,
     hoveredOverIndex: number,
     fromColumnIndex: number,
-    toColumnIndex: number
+    toColumnIndex: number,
+    drop: boolean
   ) => void;
   moveToColumn: (
     item: TaskCardProps,
@@ -44,7 +45,8 @@ export const TasksContext = React.createContext<TasksContextType>({
     draggedOverIndex: number,
     hoveredOverIndex: number,
     fromColumnIndex: number,
-    toColumnIndex: number
+    toColumnIndex: number,
+    drop: boolean
   ) {},
   moveToColumn: function (
     item: TaskCardProps,
@@ -207,7 +209,8 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
     draggedOverIndex: number,
     hoveredOverIndex: number,
     fromColumnIndex: number,
-    toColumnIndex: number
+    toColumnIndex: number,
+    drop: boolean
   ) => {
     setTasks((oldList) => {
       let newList = JSON.parse(JSON.stringify(oldList));
@@ -219,6 +222,16 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
 
       return newList;
     });
+    // if (drop) {
+    //   axios
+    //     .put("http://localhost:4000/tasks/moveItem/60e09f13284d399fc26aa9a7", {
+    //       draggedOverIndex,
+    //       hoveredOverIndex,
+    //       fromColumnIndex,
+    //       toColumnIndex,
+    //     })
+    //     .then((res) => console.log(res.data));
+    // }
   };
 
   return (
