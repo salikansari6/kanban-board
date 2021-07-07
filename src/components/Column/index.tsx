@@ -41,7 +41,7 @@ const Column: React.FunctionComponent<ToDoProps> = ({
 
   const [{ isOver }, drop] = useDrop({
     accept: itemTypes.CARD,
-    hover: (item: itemType, monitor) => {
+    drop: (item: itemType, monitor) => {
       if (columnIndex === item.columnIndex) {
         return;
       }

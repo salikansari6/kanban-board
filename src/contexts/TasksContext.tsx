@@ -183,8 +183,9 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
     fromColumnIndex: number,
     toColumnIndex: number
   ) => {
+    let newTasks;
     setTasks((oldTasks) => {
-      let newTasks = JSON.parse(JSON.stringify(oldTasks));
+      newTasks = JSON.parse(JSON.stringify(oldTasks));
       newTasks[toColumnIndex].items.splice(
         newTasks[toColumnIndex].items.length,
         0,
@@ -192,6 +193,14 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
       );
       return newTasks;
     });
+
+    axios
+      .put("http://localhost:4000/tasks/moveColumn/60e09f13284d399fc26aa9a7", {
+        card: item,
+        fromColumnIndex,
+        toColumnIndex,
+      })
+      .then((res) => console.log(res.data));
   };
 
   const moveItem = (
