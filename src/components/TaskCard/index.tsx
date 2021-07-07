@@ -22,10 +22,12 @@ interface itemType {
   index: number;
   status: string;
   columnIndex: number;
+  height: number | null;
 }
 
 const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
   const [delIconColor, setDelIconColor] = useState("black");
+  const [cardGap, setCardGap] = useState<number | null>(null);
 
   const { moveItem, editCard, deleteCard } = useContext(TasksContext);
   const dndRef = useRef<HTMLDivElement>(null);
@@ -34,6 +36,7 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
     item: {
       ...props,
       type: itemTypes.CARD,
+      height: dndRef.current?.clientHeight,
     },
     collect: (monitor) => ({
       isDragging: props.id === monitor.getItem()?.id,
@@ -47,6 +50,7 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
       if (!dndRef.current) {
         return;
       }
+      setCardGap(item.height);
     },
     drop: (item: itemType, monitor) => {
       if (!dndRef.current) {
@@ -76,7 +80,12 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
       ref={dndRef}
       className={`${isDragging ? "opacity-50" : ""} card-wrapper w-full`}
     >
-      {isOver && <div className="card-placeholder h-24"></div>}
+      {isOver && (
+        <div
+          style={{ height: cardGap ? cardGap : "" }}
+          className="card-gap"
+        ></div>
+      )}
       <div
         onClick={() => {
           if (props.columnIndex !== undefined && props.index !== undefined) {
