@@ -58,7 +58,7 @@ const Column: React.FunctionComponent<ToDoProps> = ({
     <div
       ref={drop}
       className={`to-do ${
-        isOver ? `bg-${columnColor}-200` : `bg-${columnColor}-300`
+        isOver ? ` bg-${columnColor}-200 ` : ` bg-${columnColor}-300 `
       } flex flex-col items-center px-3`}
     >
       {" "}

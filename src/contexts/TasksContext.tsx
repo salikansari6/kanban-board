@@ -16,8 +16,7 @@ export type TasksContextType = {
     draggedOverIndex: number,
     hoveredOverIndex: number,
     fromColumnIndex: number,
-    toColumnIndex: number,
-    drop: boolean
+    toColumnIndex: number
   ) => void;
   moveToColumn: (
     item: TaskCardProps,
@@ -45,8 +44,7 @@ export const TasksContext = React.createContext<TasksContextType>({
     draggedOverIndex: number,
     hoveredOverIndex: number,
     fromColumnIndex: number,
-    toColumnIndex: number,
-    drop: boolean
+    toColumnIndex: number
   ) {},
   moveToColumn: function (
     item: TaskCardProps,
@@ -114,6 +112,18 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
       );
       return newTasks;
     });
+
+    axios
+      .delete(
+        "http://localhost:4000/tasks/deleteCard/60e09f13284d399fc26aa9a7",
+        {
+          data: {
+            cardId: id,
+            columnIndex,
+          },
+        }
+      )
+      .then((res) => console.log(res.data));
   };
 
   const editTask = (
@@ -209,8 +219,7 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
     draggedOverIndex: number,
     hoveredOverIndex: number,
     fromColumnIndex: number,
-    toColumnIndex: number,
-    drop: boolean
+    toColumnIndex: number
   ) => {
     setTasks((oldList) => {
       let newList = JSON.parse(JSON.stringify(oldList));
@@ -222,16 +231,6 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
 
       return newList;
     });
-    // if (drop) {
-    //   axios
-    //     .put("http://localhost:4000/tasks/moveItem/60e09f13284d399fc26aa9a7", {
-    //       draggedOverIndex,
-    //       hoveredOverIndex,
-    //       fromColumnIndex,
-    //       toColumnIndex,
-    //     })
-    //     .then((res) => console.log(res.data));
-    // }
   };
 
   return (

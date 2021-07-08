@@ -59,14 +59,16 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
 
       const hoveredOverIndex = props.index;
       const draggedOverIndex = item.index;
-      if (hoveredOverIndex != undefined && props.columnIndex != undefined)
+      if (hoveredOverIndex != null && props.columnIndex != null) {
         moveItem(
           draggedOverIndex,
           hoveredOverIndex,
           item.columnIndex,
-          props.columnIndex,
-          true
+          props.columnIndex
         );
+        item.columnIndex = props.columnIndex;
+        item.index = hoveredOverIndex;
+      }
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
