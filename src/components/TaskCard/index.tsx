@@ -29,7 +29,6 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
 
   const dndRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    console.log(dndRef.current?.clientHeight);
     if (dndRef.current) {
       setCardGap(dndRef.current.clientHeight);
     }

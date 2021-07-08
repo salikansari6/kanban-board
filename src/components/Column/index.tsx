@@ -61,7 +61,7 @@ const Column: React.FunctionComponent<ToDoProps> = ({
         isOver
           ? ` bg-${columnColor}-300`
           : `bg-gradient-to-br from-${columnColor}-300 to-${columnColor}-500  `
-      } flex flex-col items-center px-3 shadow-inner`}
+      } flex flex-col items-center px-3 rounded shadow`}
     >
       {" "}
       <div className="to-do__title text-center text-xl font-bold p-2">
