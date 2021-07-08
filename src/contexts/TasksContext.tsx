@@ -149,6 +149,14 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
       return newTasks;
     });
 
+    axios
+      .put("http://localhost:4000/tasks/updateCard/60e09f13284d399fc26aa9a7", {
+        columnIndex,
+        id,
+        updatedValues: newValues,
+      })
+      .then((res) => console.log(res.data));
+
     setShowModal(false);
     // console.log(tasks);
   };
