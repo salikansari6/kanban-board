@@ -1,10 +1,8 @@
-import React, { useRef, useContext, useState } from "react";
+import React, { useRef, useContext, useState, useEffect } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { TasksContext } from "../../contexts/TasksContext";
 import itemTypes from "../../utils/itemType";
-import CardEditModal from "../CardEditModal/index";
 import "./TaskCard.css";
-import axios from "axios";
 import DeleteIcon from "../../assets/DeleteIcon";
 
 export interface TaskCardProps {
@@ -29,8 +27,15 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
   const [delIconColor, setDelIconColor] = useState("black");
   const [cardGap, setCardGap] = useState<number | null>(null);
 
-  const { moveItem, editCard, deleteCard } = useContext(TasksContext);
   const dndRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    console.log(dndRef.current?.clientHeight);
+    if (dndRef.current) {
+      setCardGap(dndRef.current.clientHeight);
+    }
+  }, [props.description, props.title]);
+
+  const { moveItem, editCard, deleteCard } = useContext(TasksContext);
   const [{ isDragging }, drag] = useDrag({
     type: itemTypes.CARD,
     item: {
