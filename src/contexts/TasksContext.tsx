@@ -231,6 +231,15 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
 
       return newList;
     });
+
+    axios
+      .put("http://localhost:4000/tasks/moveItem/60e09f13284d399fc26aa9a7", {
+        draggedOverIndex,
+        hoveredOverIndex,
+        fromColumnIndex,
+        toColumnIndex,
+      })
+      .then((res) => console.log(res.data));
   };
 
   return (
