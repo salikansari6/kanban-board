@@ -91,7 +91,9 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/tasks/60e09f13284d399fc26aa9a7")
+      .get("http://localhost:4000/tasks/60e09f13284d399fc26aa9a7", {
+        withCredentials: true,
+      })
       .then((res) => {
         setTasks(res.data[0].tasks);
       })
@@ -121,6 +123,7 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
             cardId: id,
             columnIndex,
           },
+          withCredentials: true,
         }
       )
       .then((res) => console.log(res.data));
@@ -150,11 +153,17 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
     });
 
     axios
-      .put("http://localhost:4000/tasks/updateCard/60e09f13284d399fc26aa9a7", {
-        columnIndex,
-        id,
-        updatedValues: newValues,
-      })
+      .put(
+        "http://localhost:4000/tasks/updateCard/60e09f13284d399fc26aa9a7",
+        {
+          columnIndex,
+          id,
+          updatedValues: newValues,
+        },
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => console.log(res.data));
 
     setShowModal(false);
@@ -177,10 +186,16 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
       return newTasks;
     });
     axios
-      .post("http://localhost:4000/tasks/add/60e09f13284d399fc26aa9a7", {
-        card: newCard,
-        columnIndex: columnIndex,
-      })
+      .post(
+        "http://localhost:4000/tasks/add/60e09f13284d399fc26aa9a7",
+        {
+          card: newCard,
+          columnIndex: columnIndex,
+        },
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => console.log(res.data));
   };
 
@@ -215,11 +230,17 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
     });
 
     axios
-      .put("http://localhost:4000/tasks/moveColumn/60e09f13284d399fc26aa9a7", {
-        card: item,
-        fromColumnIndex,
-        toColumnIndex,
-      })
+      .put(
+        "http://localhost:4000/tasks/moveColumn/60e09f13284d399fc26aa9a7",
+        {
+          card: item,
+          fromColumnIndex,
+          toColumnIndex,
+        },
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => console.log(res.data));
   };
 
@@ -241,12 +262,18 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
     });
 
     axios
-      .put("http://localhost:4000/tasks/moveItem/60e09f13284d399fc26aa9a7", {
-        draggedOverIndex,
-        hoveredOverIndex,
-        fromColumnIndex,
-        toColumnIndex,
-      })
+      .put(
+        "http://localhost:4000/tasks/moveItem/60e09f13284d399fc26aa9a7",
+        {
+          draggedOverIndex,
+          hoveredOverIndex,
+          fromColumnIndex,
+          toColumnIndex,
+        },
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => console.log(res.data));
   };
 
