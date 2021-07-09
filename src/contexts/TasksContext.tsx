@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { TaskCardProps } from "../components/TaskCard";
 import { v4 as uuid } from "uuid";
-import { data } from "../data/index";
 import { currentlyEditingType } from "../components/CardEditModal";
 
 type newValuesType = {
