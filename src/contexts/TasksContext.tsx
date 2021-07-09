@@ -91,7 +91,7 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/tasks/60e09f13284d399fc26aa9a7", {
+      .get("http://localhost:4000/tasks", {
         withCredentials: true,
       })
       .then((res) => {
@@ -116,16 +116,13 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
     });
 
     axios
-      .delete(
-        "http://localhost:4000/tasks/deleteCard/60e09f13284d399fc26aa9a7",
-        {
-          data: {
-            cardId: id,
-            columnIndex,
-          },
-          withCredentials: true,
-        }
-      )
+      .delete("http://localhost:4000/tasks/deleteCard", {
+        data: {
+          cardId: id,
+          columnIndex,
+        },
+        withCredentials: true,
+      })
       .then((res) => console.log(res.data));
   };
 
@@ -154,7 +151,7 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
 
     axios
       .put(
-        "http://localhost:4000/tasks/updateCard/60e09f13284d399fc26aa9a7",
+        "http://localhost:4000/tasks/updateCard",
         {
           columnIndex,
           id,
@@ -187,7 +184,7 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
     });
     axios
       .post(
-        "http://localhost:4000/tasks/add/60e09f13284d399fc26aa9a7",
+        "http://localhost:4000/tasks/add",
         {
           card: newCard,
           columnIndex: columnIndex,
@@ -231,7 +228,7 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
 
     axios
       .put(
-        "http://localhost:4000/tasks/moveColumn/60e09f13284d399fc26aa9a7",
+        "http://localhost:4000/tasks/moveColumn",
         {
           card: item,
           fromColumnIndex,
@@ -263,7 +260,7 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
 
     axios
       .put(
-        "http://localhost:4000/tasks/moveItem/60e09f13284d399fc26aa9a7",
+        "http://localhost:4000/tasks/moveItem",
         {
           draggedOverIndex,
           hoveredOverIndex,
