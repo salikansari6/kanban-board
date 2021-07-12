@@ -32,7 +32,7 @@ export const Navbar = () => {
         <h1 className="ml-2 text-2xl">Boardify</h1>
       </Link>
       <div className="links flex ml-auto justify-around items-center w-1/3">
-        <Link to="/kanban">Kanban</Link>
+        {user && <Link to="/kanban">Kanban</Link>}
         <div className="avatar-wrapper relative">
           {user ? (
             <img
