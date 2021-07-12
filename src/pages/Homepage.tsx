@@ -21,7 +21,7 @@ const Homepage = () => {
           </p>
           <p className="text-3xl">Organize all your tasks at a Drag and Drop</p>
           <a
-            href="http://localhost:4000/auth/google/"
+            href="/auth/google/"
             className="text-xl bg-gray-800 text-white rounded shadow py-2 px-5 lg:mt-5 border border-gray-800 hover:bg-white hover:text-gray-800"
           >
             Get started

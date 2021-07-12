@@ -90,7 +90,7 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/tasks", {
+      .get("/tasks", {
         withCredentials: true,
       })
       .then((res) => {
@@ -115,7 +115,7 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
     });
 
     axios
-      .delete("http://localhost:4000/tasks/deleteCard", {
+      .delete("/tasks/deleteCard", {
         data: {
           cardId: id,
           columnIndex,
@@ -150,7 +150,7 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
 
     axios
       .put(
-        "http://localhost:4000/tasks/updateCard",
+        "/tasks/updateCard",
         {
           columnIndex,
           id,
@@ -183,7 +183,7 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
     });
     axios
       .post(
-        "http://localhost:4000/tasks/add",
+        "/tasks/add",
         {
           card: newCard,
           columnIndex: columnIndex,
@@ -227,7 +227,7 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
 
     axios
       .put(
-        "http://localhost:4000/tasks/moveColumn",
+        "/tasks/moveColumn",
         {
           card: item,
           fromColumnIndex,
@@ -259,7 +259,7 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
 
     axios
       .put(
-        "http://localhost:4000/tasks/moveItem",
+        "/tasks/moveItem",
         {
           draggedOverIndex,
           hoveredOverIndex,

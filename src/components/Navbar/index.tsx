@@ -19,7 +19,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/user", {
+      .get("/user", {
         withCredentials: true,
       })
       .then((res) => setUser(res.data));
@@ -42,17 +42,14 @@ export const Navbar = () => {
               className="avatar rounded-full h-10 w-10 cursor-pointer"
             />
           ) : (
-            <a
-              href="http://localhost:4000/auth/google/"
-              className="bg-gray-700 rounded py-1 px-3"
-            >
+            <a href="/auth/google/" className="bg-gray-700 rounded py-1 px-3">
               Login
             </a>
           )}
           {showOptions && (
             <ul className="options w-24 rounded border shadow-md border-gray-700 absolute right-0 p-2 ml bg-white text-gray-900 z-10">
               <li>
-                <a href="http://localhost:4000/logout" className="">
+                <a href="/logout" className="">
                   Log Out
                 </a>
               </li>
