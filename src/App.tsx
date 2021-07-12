@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import Login from "./pages/Login";
 import Homepage from "./pages/Homepage";
+import Navbar from "./components/Navbar";
 
 function App() {
   const { tasks, showModal, currentlyEditing } = useContext(TasksContext);
@@ -15,13 +16,16 @@ function App() {
     <Router>
       <DndProvider backend={HTML5Backend}>
         <div className="h-screen">
-          <Route exact path="/" component={Homepage} />
-          <Route
-            exact
-            path="/kanban"
-            component={() => <Kanban tasks={tasks} />}
-          />
-          <Route exact path="/login" component={Login} />
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={Homepage} />
+            <Route
+              exact
+              path="/kanban"
+              component={() => <Kanban tasks={tasks} />}
+            />
+            <Route exact path="/login" component={Login} />
+          </Switch>
           {showModal && <CardEditModal currentlyEditing={currentlyEditing} />}
         </div>
       </DndProvider>
