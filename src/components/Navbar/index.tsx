@@ -29,7 +29,7 @@ export const Navbar = () => {
     <nav className="bg-gray-800 text-white p-3 flex lg:px-20 relative">
       <Link to="/" className="flex navbar-brand justify-center items-center">
         <img src="/images/kanban-logo.png" className="h-6 w-6" alt="logo" />
-        <h1 className="ml-2 text-2xl">Boardify</h1>
+        <h1 className="ml-2 text-2xl">Boardlia</h1>
       </Link>
       <div className="links flex ml-auto justify-around items-center w-1/3">
         {user && <Link to="/kanban">Kanban</Link>}
