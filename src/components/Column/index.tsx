@@ -1,12 +1,11 @@
 import React, { useContext, useState, useRef } from "react";
 import { TaskCardProps } from "../TaskCard/index";
 import TaskCard from "../TaskCard/index";
-import { v4 as uuid } from "uuid";
 import { useDrop } from "react-dnd";
 import itemTypes from "../../utils/itemType";
 import { TasksContext } from "../../contexts/TasksContext";
 import CardComposer from "../CardComposer/index";
-import CardEditModal from "../CardEditModal/index";
+import dynamicGradient from "../../utils/dynamicGradient";
 
 interface ToDoProps {
   _id: string;
@@ -58,9 +57,7 @@ const Column: React.FunctionComponent<ToDoProps> = ({
     <div
       ref={drop}
       className={`to-do ${
-        isOver
-          ? ` bg-${columnColor}-300`
-          : `bg-gradient-to-br from-${columnColor}-300 to-${columnColor}-500  `
+        isOver ? ` bg-${columnColor}-300` : dynamicGradient("br", columnColor)
       } flex flex-col items-center px-3 rounded shadow`}
     >
       {" "}
