@@ -42,14 +42,28 @@ export const Navbar = () => {
               className="avatar rounded-full h-10 w-10 cursor-pointer"
             />
           ) : (
-            <a href="/auth/google/" className="bg-gray-700 rounded py-1 px-3">
+            <a
+              href={`${
+                process.env.NODE_ENV === "development"
+                  ? process.env.REACT_APP_PROXY_URL
+                  : ""
+              }/auth/google`}
+              className="bg-gray-700 rounded py-1 px-3"
+            >
               Login
             </a>
           )}
           {showOptions && (
             <ul className="options w-24 rounded border shadow-md border-gray-700 absolute right-0 p-2 ml bg-white text-gray-900 z-10">
               <li>
-                <a href="/logout" className="">
+                <a
+                  href={`${
+                    process.env.NODE_ENV === "development"
+                      ? process.env.REACT_APP_PROXY_URL
+                      : ""
+                  }/logout`}
+                  className=""
+                >
                   Log Out
                 </a>
               </li>
