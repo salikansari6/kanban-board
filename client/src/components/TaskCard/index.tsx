@@ -35,7 +35,7 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
   }, [props.description, props.title]);
 
   const { moveItem, editCard, deleteCard } = useContext(TasksContext);
-  const [{ isDragging }, drag] = useDrag({
+  const [{ isDragging }, drag, dragPreview] = useDrag({
     type: itemTypes.CARD,
     item: {
       ...props,
@@ -79,7 +79,7 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
     }),
   });
 
-  drop(drag(dndRef));
+  dragPreview(drop(drag(dndRef)));
 
   return (
     <div
