@@ -10,9 +10,9 @@ export interface KanbanProps {
 
 const Kanban: React.FunctionComponent<KanbanProps> = ({ tasks }) => {
   return (
-    <div className="kanban p-5 h-full flex flex-col items-center">
+    <div className="kanban p-5 h-full flex flex-col items-start lg:items-center  overflow-x-scroll">
       <div className="title text-3xl text-center font-bold ">Kanban Board</div>
-      <div className="kanban__board grid grid-cols-3 gap-5 h-full w-2/3 mt-5">
+      <div className="kanban__board flex  h-full w-auto  lg:w-2/3 mt-5">
         {tasks.map((col, index) => {
           return (
             <Column
