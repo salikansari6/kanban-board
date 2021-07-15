@@ -1,8 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Kanban from "./components/Kanban";
 import CardEditModal from "./components/CardEditModal/index";
 import { TasksContext } from "./contexts/TasksContext";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import device from "current-device";
+import { TouchBackend } from "react-dnd-touch-backend";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import Login from "./pages/Login";
@@ -14,7 +16,9 @@ function App() {
 
   return (
     <Router>
-      <DndProvider backend={HTML5Backend}>
+      <DndProvider
+        backend={device.type === "desktop" ? HTML5Backend : TouchBackend}
+      >
         <div className="h-screen">
           <Navbar />
           <Switch>
