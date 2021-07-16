@@ -37,6 +37,9 @@ function App() {
   return (
     <Router>
       <DndProvider
+        options={{
+          delayTouchStart: 200,
+        }}
         backend={device.type === "desktop" ? HTML5Backend : TouchBackend}
       >
         {device.type !== "desktop" && <CardPreview />}
