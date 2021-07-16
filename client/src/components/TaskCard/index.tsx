@@ -35,7 +35,7 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
   }, [props.description, props.title]);
 
   const { moveItem, editCard, deleteCard } = useContext(TasksContext);
-  const [{ isDragging }, drag, dragPreview] = useDrag({
+  const [{ isDragging, display }, drag, dragPreview] = useDrag({
     type: itemTypes.CARD,
     item: {
       ...props,
@@ -44,6 +44,7 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
     },
     collect: (monitor) => ({
       isDragging: props.id === monitor.getItem()?.id,
+      display: monitor.isDragging() ? "hidden" : "",
     }),
   });
 
@@ -79,58 +80,57 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
     }),
   });
 
-  dragPreview(drop(drag(dndRef)));
+  drop(drag(dndRef));
 
   return (
-    <div
-      ref={dndRef}
-      className={`${isDragging ? "opacity-50" : ""} card-wrapper w-full`}
-    >
-      {isOver && (
-        <div
-          style={{ height: cardGap ? cardGap : "" }}
-          className="card-gap"
-        ></div>
-      )}
-      <div
-        onClick={() => {
-          if (props.columnIndex !== undefined && props.index !== undefined) {
-            editCard(props.id, props.columnIndex, props.index);
-          }
-        }}
-        className="dnd-item bg-white w-full p-3 rounded shadow relative my-2 cursor-pointer hover:bg-gray-100"
-      >
-        <div className="flex">
+    <div ref={dragPreview} className={display}>
+      <div ref={dndRef} className={`card-wrapper w-full`}>
+        {isOver && (
           <div
-            className={`${
-              props.title === "" ? "opacity-30 " : ""
-            } dnd-item__title text-xl font-bold`}
-          >
-            {props.title === "" ? "Untitled" : props.title}
+            style={{ height: cardGap ? cardGap : "" }}
+            className="card-gap"
+          ></div>
+        )}
+        <div
+          onClick={() => {
+            if (props.columnIndex !== undefined && props.index !== undefined) {
+              editCard(props.id, props.columnIndex, props.index);
+            }
+          }}
+          className="dnd-item bg-white w-full p-3 rounded shadow relative my-2 cursor-pointer hover:bg-gray-100"
+        >
+          <div className="flex">
+            <div
+              className={`${
+                props.title === "" ? "opacity-30 " : ""
+              } dnd-item__title text-xl font-bold`}
+            >
+              {props.title === "" ? "Untitled" : props.title}
+            </div>
+            <button
+              className="border border-gray-400 rounded-lg p-1 shadow  ml-auto"
+              onMouseOver={(e) => {
+                setDelIconColor("red");
+              }}
+              onMouseOut={(e) => {
+                setDelIconColor("black");
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (
+                  props.columnIndex !== undefined &&
+                  props.index !== undefined
+                ) {
+                  deleteCard(props.id, props.columnIndex, props.index);
+                }
+              }}
+            >
+              <DeleteIcon color={delIconColor} />
+            </button>
           </div>
-          <button
-            className="border border-gray-400 rounded-lg p-1 shadow  ml-auto"
-            onMouseOver={(e) => {
-              setDelIconColor("red");
-            }}
-            onMouseOut={(e) => {
-              setDelIconColor("black");
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-              if (
-                props.columnIndex !== undefined &&
-                props.index !== undefined
-              ) {
-                deleteCard(props.id, props.columnIndex, props.index);
-              }
-            }}
-          >
-            <DeleteIcon color={delIconColor} />
-          </button>
+          <div className="dnd-item__description my-2">{props.description}</div>
+          <div className="dnd-item__priority">Priotiy : {props.priority}</div>
         </div>
-        <div className="dnd-item__description my-2">{props.description}</div>
-        <div className="dnd-item__priority">Priotiy : {props.priority}</div>
       </div>
     </div>
   );

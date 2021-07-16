@@ -12,6 +12,7 @@ import Homepage from "./pages/Homepage";
 import { usePreview } from "react-dnd-preview";
 import Navbar from "./components/Navbar";
 import TaskCard from "./components/TaskCard";
+import CardDragPreview from "./components/CardDragPreview";
 
 const CardPreview = () => {
   const { display, itemType, item, style } = usePreview();
@@ -20,16 +21,12 @@ const CardPreview = () => {
     return null;
   }
   return (
-    <div style={style}>
-      <div className="w-96">
-        <TaskCard
-          description={item.description}
-          title={item.title}
-          id={item.id}
-          priority={item.priority}
-          status={item.status}
-        />
-      </div>
+    <div style={style} className="w-96">
+      <CardDragPreview
+        title={item.title}
+        description={item.description}
+        priority={item.priority}
+      />
     </div>
   );
 };
