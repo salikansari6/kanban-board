@@ -10,7 +10,7 @@ interface CardDragPreviewProps {
 const CardDragPreview = React.forwardRef<HTMLDivElement, CardDragPreviewProps>(
   (props, ref) => {
     return (
-      <div className={`card-wrapper w-full`} ref={ref}>
+      <div className={`card-wrapper w-full transform rotate-6`} ref={ref}>
         <div className="dnd-item bg-white w-full p-3 rounded shadow relative my-2 cursor-pointer hover:bg-gray-100">
           <div className="flex">
             <div
