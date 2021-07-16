@@ -42,7 +42,8 @@ function App() {
         }}
         backend={device.type === "desktop" ? HTML5Backend : TouchBackend}
       >
-        {device.type !== "desktop" && <CardPreview />}
+        {/* {device.type !== "desktop" && <CardPreview />} */}
+        <CardPreview />
         <div className="h-screen">
           <Navbar />
           <Switch>

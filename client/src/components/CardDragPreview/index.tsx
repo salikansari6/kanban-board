@@ -20,9 +20,6 @@ const CardDragPreview = React.forwardRef<HTMLDivElement, CardDragPreviewProps>(
             >
               {props.title === "" ? "Untitled" : props.title}
             </div>
-            <button className="border border-gray-400 rounded-lg p-1 shadow  ml-auto">
-              <DeleteIcon color="black" />
-            </button>
           </div>
           <div className="dnd-item__description my-2">{props.description}</div>
           <div className="dnd-item__priority">Priotiy : {props.priority}</div>

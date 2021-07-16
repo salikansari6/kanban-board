@@ -84,7 +84,10 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
 
   return (
     <div ref={dragPreview} className={display}>
-      <div ref={dndRef} className={`card-wrapper w-full`}>
+      <div
+        ref={dndRef}
+        className={`card-wrapper w-full my-2 ${isDragging ? "opacity-0" : " "}`}
+      >
         {isOver && (
           <div
             style={{ height: cardGap ? cardGap : "" }}
@@ -97,7 +100,7 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
               editCard(props.id, props.columnIndex, props.index);
             }
           }}
-          className="dnd-item bg-white w-full p-3 rounded shadow relative my-2 cursor-pointer hover:bg-gray-100"
+          className="dnd-item bg-white w-full p-3 rounded shadow relative  cursor-pointer hover:bg-gray-100"
         >
           <div className="flex">
             <div
