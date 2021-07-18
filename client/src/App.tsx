@@ -16,7 +16,6 @@ import CardDragPreview from "./components/CardDragPreview";
 
 const CardPreview = () => {
   const { display, itemType, item, style } = usePreview();
-  console.log(item);
   if (!display) {
     return null;
   }
