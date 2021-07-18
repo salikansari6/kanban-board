@@ -83,10 +83,10 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
   drop(drag(dndRef));
 
   return (
-    <div ref={dragPreview} className={display}>
+    <div ref={dragPreview} className={`${display} my-2`}>
       <div
         ref={dndRef}
-        className={`card-wrapper w-full my-2 ${isDragging ? "opacity-0" : " "}`}
+        className={`card-wrapper w-full  ${isDragging ? "opacity-0" : " "}`}
       >
         {isOver && (
           <div
