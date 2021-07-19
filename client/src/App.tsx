@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import Kanban from "./components/Kanban";
 import CardEditModal from "./components/CardEditModal/index";
-import { TasksContext } from "./contexts/TasksContext";
+import TasksContextProvider, { TasksContext } from "./contexts/TasksContext";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import device from "current-device";
 import { TouchBackend } from "react-dnd-touch-backend";
@@ -31,29 +31,28 @@ const CardPreview = () => {
 };
 
 function App() {
-  const { showModal, currentlyEditing } = useContext(TasksContext);
-
   return (
-    <Router>
-      <DndProvider
-        options={{
-          delayTouchStart: 200,
-        }}
-        backend={device.type === "desktop" ? HTML5Backend : TouchBackend}
-      >
-        {/* {device.type !== "desktop" && <CardPreview />} */}
-        <CardPreview />
-        <div className="h-screen">
-          <Navbar />
-          <Switch>
-            <Route exact path="/" component={Homepage} />
-            <Route exact path="/kanban" component={() => <Kanban />} />
-            <Route exact path="/login" component={Login} />
-          </Switch>
-          {showModal && <CardEditModal currentlyEditing={currentlyEditing} />}
-        </div>
-      </DndProvider>
-    </Router>
+    <TasksContextProvider>
+      <Router>
+        <DndProvider
+          options={{
+            delayTouchStart: 200,
+          }}
+          backend={device.type === "desktop" ? HTML5Backend : TouchBackend}
+        >
+          {/* {device.type !== "desktop" && <CardPreview />} */}
+          <CardPreview />
+          <div className="h-screen">
+            <Navbar />
+            <Switch>
+              <Route exact path="/" component={Homepage} />
+              <Route exact path="/kanban" component={() => <Kanban />} />
+              <Route exact path="/login" component={Login} />
+            </Switch>
+          </div>
+        </DndProvider>
+      </Router>
+    </TasksContextProvider>
   );
 }
 

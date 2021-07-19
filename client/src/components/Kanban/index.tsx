@@ -2,10 +2,11 @@ import React, { useContext } from "react";
 import Column from "../Column";
 import { TaskGroup, TasksContext } from "../../contexts/TasksContext";
 import withScrolling from "react-dnd-scrolling";
+import CardEditModal from "../CardEditModal";
 
 const ScrollingComponent = withScrolling("div");
 const Kanban: React.FunctionComponent = () => {
-  const { tasks } = useContext(TasksContext);
+  const { tasks, showModal, currentlyEditing } = useContext(TasksContext);
 
   return (
     <ScrollingComponent className="kanban p-5 h-full flex flex-col items-start lg:items-center overflow-x-scroll">
@@ -23,6 +24,7 @@ const Kanban: React.FunctionComponent = () => {
             />
           );
         })}
+        {showModal && <CardEditModal currentlyEditing={currentlyEditing} />}
       </div>
     </ScrollingComponent>
   );
