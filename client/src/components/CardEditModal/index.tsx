@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import ReactDOM from "react-dom";
 import { TasksContext } from "../../contexts/TasksContext";
 import { TaskCardProps } from "../TaskCard/index";
+import DeleteIcon from "../../assets/DeleteIcon";
 
 interface CardEditModalProps {
   currentlyEditing: currentlyEditingType;
@@ -16,7 +17,8 @@ export type currentlyEditingType = {
 const CardEditModal: React.FunctionComponent<CardEditModalProps> = ({
   currentlyEditing,
 }) => {
-  const { getTask, closeModal, editTask } = useContext(TasksContext);
+  const { getTask, closeModal, editTask, deleteCard } =
+    useContext(TasksContext);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("");
@@ -64,9 +66,27 @@ const CardEditModal: React.FunctionComponent<CardEditModalProps> = ({
 
   return ReactDOM.createPortal(
     <div className="h-screen w-screen z-20 fixed top-0 left-0 right-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="modal-body text-2xl p-5 h-auto w-1/2 bg-white rounded-lg shadow-lg">
+      <div className="modal-body text-2xl p-5 h-auto w-full mx-2 lg:mx-0 lg:w-1/2 bg-white rounded-lg shadow-lg">
         <form action="" className="" onSubmit={handleSubmit}>
           <div className="input-group my-5    items-center">
+            <button
+              className="border border-gray-400 rounded-lg p-1 shadow float-right"
+              onClick={(e) => {
+                e.stopPropagation();
+                if (
+                  currentlyEditing.columnIndex !== undefined &&
+                  currentlyEditing.index !== undefined
+                ) {
+                  deleteCard(
+                    currentlyEditing.id,
+                    currentlyEditing.columnIndex,
+                    currentlyEditing.index
+                  );
+                }
+              }}
+            >
+              <DeleteIcon />
+            </button>
             <label htmlFor="title" className="font-medium">
               Title
             </label>
