@@ -110,26 +110,6 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
             >
               {props.title === "" ? "Untitled" : props.title}
             </div>
-            <button
-              className="border border-gray-400 rounded-lg p-1 shadow  ml-auto"
-              onMouseOver={(e) => {
-                setDelIconColor("red");
-              }}
-              onMouseOut={(e) => {
-                setDelIconColor("black");
-              }}
-              onClick={(e) => {
-                e.stopPropagation();
-                if (
-                  props.columnIndex !== undefined &&
-                  props.index !== undefined
-                ) {
-                  deleteCard(props.id, props.columnIndex, props.index);
-                }
-              }}
-            >
-              <DeleteIcon color={delIconColor} />
-            </button>
           </div>
           <div className="dnd-item__description text-sm lg:text-md my-2">
             {props.description}
