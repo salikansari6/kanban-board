@@ -106,7 +106,7 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
             <div
               className={`${
                 props.title === "" ? "opacity-30 " : ""
-              } dnd-item__title text-xl font-bold`}
+              } dnd-item__title text-md lg:text-xl font-bold`}
             >
               {props.title === "" ? "Untitled" : props.title}
             </div>
@@ -131,8 +131,12 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
               <DeleteIcon color={delIconColor} />
             </button>
           </div>
-          <div className="dnd-item__description my-2">{props.description}</div>
-          <div className="dnd-item__priority">Priotiy : {props.priority}</div>
+          <div className="dnd-item__description text-sm lg:text-md my-2">
+            {props.description}
+          </div>
+          <div className="dnd-item__priority text-sm lg:text-md">
+            Priotiy : {props.priority}
+          </div>
         </div>
       </div>
     </div>

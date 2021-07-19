@@ -18,13 +18,17 @@ const CardDragPreview = React.forwardRef<HTMLDivElement, CardDragPreviewProps>(
             <div
               className={`${
                 props.title === "" ? "opacity-30 " : ""
-              } dnd-item__title text-xl font-bold`}
+              } dnd-item__title text-md lg:text-xl font-bold`}
             >
               {props.title === "" ? "Untitled" : props.title}
             </div>
           </div>
-          <div className="dnd-item__description my-2">{props.description}</div>
-          <div className="dnd-item__priority">Priotiy : {props.priority}</div>
+          <div className="dnd-item__description text-sm lg:text-md my-2">
+            {props.description}
+          </div>
+          <div className="dnd-item__priority text-sm lg:text-md">
+            Priotiy : {props.priority}
+          </div>
         </div>
       </div>
     );

@@ -20,7 +20,7 @@ const CardPreview = () => {
     return null;
   }
   return (
-    <div style={{ ...style, zIndex: "10" }} className="w-96">
+    <div style={{ ...style, zIndex: "10" }} className="w-60 lg:w-96">
       <CardDragPreview
         title={item.title}
         description={item.description}
