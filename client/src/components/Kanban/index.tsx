@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import Column from "../Column";
-import { TaskGroup } from "../../contexts/TasksContext";
+import { TaskGroup, TasksContext } from "../../contexts/TasksContext";
 import withScrolling from "react-dnd-scrolling";
-export interface KanbanProps {
-  tasks: TaskGroup[];
-}
 
 const ScrollingComponent = withScrolling("div");
-const Kanban: React.FunctionComponent<KanbanProps> = ({ tasks }) => {
+const Kanban: React.FunctionComponent = () => {
+  const { tasks } = useContext(TasksContext);
+
   return (
     <ScrollingComponent className="kanban p-5 h-full flex flex-col items-start lg:items-center overflow-x-scroll">
       <div className="title text-3xl text-center font-bold ">Kanban Board</div>

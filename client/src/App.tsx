@@ -31,7 +31,7 @@ const CardPreview = () => {
 };
 
 function App() {
-  const { tasks, showModal, currentlyEditing } = useContext(TasksContext);
+  const { showModal, currentlyEditing } = useContext(TasksContext);
 
   return (
     <Router>
@@ -47,11 +47,7 @@ function App() {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Homepage} />
-            <Route
-              exact
-              path="/kanban"
-              component={() => <Kanban tasks={tasks} />}
-            />
+            <Route exact path="/kanban" component={() => <Kanban />} />
             <Route exact path="/login" component={Login} />
           </Switch>
           {showModal && <CardEditModal currentlyEditing={currentlyEditing} />}
