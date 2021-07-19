@@ -6,6 +6,7 @@ const Homepage = () => {
     <div className="text-center ">
       <div className="hero flex justify-center relative text-gray-800">
         <video
+          muted
           autoPlay
           loop
           src="/videos/kanban-video.mp4"
