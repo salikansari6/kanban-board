@@ -8,6 +8,8 @@ const ScrollingComponent = withScrolling("div");
 const Kanban: React.FunctionComponent = () => {
   const { tasks, showModal, currentlyEditing } = useContext(TasksContext);
 
+  console.log(tasks)
+
   return (
     <ScrollingComponent className="kanban p-5 h-full flex flex-col items-start lg:items-center overflow-x-scroll">
       <div className="title text-3xl text-center font-bold ">Kanban Board</div>
