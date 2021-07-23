@@ -1,4 +1,5 @@
 import React, { useRef, useContext, useState, useEffect } from "react";
+import { getEmptyImage } from "react-dnd-html5-backend";
 import { useDrag, useDrop } from "react-dnd";
 import { TasksContext } from "../../contexts/TasksContext";
 import itemTypes from "../../utils/itemType";
@@ -80,13 +81,17 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
     }),
   });
 
+  useEffect(() => {
+    dragPreview(getEmptyImage(), { captureDraggingState: true });
+  }, []);
+
   drop(drag(dndRef));
 
   return (
     <div ref={dragPreview} className={`${display} my-2`}>
       <div
         ref={dndRef}
-        className={`card-wrapper w-full  ${isDragging ? "opacity-0" : " "}`}
+        className={`card-wrapper  w-full  ${isDragging ? "opacity-0" : " "}`}
       >
         {isOver && (
           <div
