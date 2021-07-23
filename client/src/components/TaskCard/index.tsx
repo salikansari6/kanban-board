@@ -29,11 +29,6 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
   const [cardGap, setCardGap] = useState<number | null>(null);
 
   const dndRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (dndRef.current) {
-      setCardGap(dndRef.current.clientHeight);
-    }
-  }, [props.description, props.title]);
 
   const { moveItem, editCard, deleteCard } = useContext(TasksContext);
   const [{ isDragging, display }, drag, dragPreview] = useDrag({
@@ -51,7 +46,6 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
 
   const [{ isOver }, drop] = useDrop({
     accept: itemTypes.CARD,
-
     hover: (item: itemType, monitor) => {
       if (!dndRef.current) {
         return;
@@ -84,6 +78,12 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
   useEffect(() => {
     dragPreview(getEmptyImage(), { captureDraggingState: true });
   }, []);
+
+  useEffect(() => {
+    if (dndRef.current) {
+      setCardGap(dndRef.current.clientHeight);
+    }
+  }, [props.description, props.title]);
 
   drop(drag(dndRef));
 
