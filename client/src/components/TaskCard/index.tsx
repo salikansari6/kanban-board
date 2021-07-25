@@ -47,6 +47,8 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
   const [{ isOver }, drop] = useDrop({
     accept: itemTypes.CARD,
     hover: (item: itemType, monitor) => {
+      console.log("HOVERED OVER INDEX: " + props.index);
+      console.log("DRAGGED OVER INDEX: " + item.index);
       if (!dndRef.current) {
         return;
       }
@@ -57,9 +59,17 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
         return;
       }
 
-      const hoveredOverIndex = props.index;
-      const draggedOverIndex = item.index;
+      let hoveredOverIndex = props.index;
+      let draggedOverIndex = item.index;
+
       if (hoveredOverIndex != null && props.columnIndex != null) {
+        //if statement to fix reordering of cards when in the same column
+        if (
+          hoveredOverIndex > draggedOverIndex &&
+          item.columnIndex === props.columnIndex
+        ) {
+          hoveredOverIndex -= 1;
+        }
         moveItem(
           draggedOverIndex,
           hoveredOverIndex,
