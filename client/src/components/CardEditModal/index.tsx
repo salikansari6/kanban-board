@@ -77,11 +77,15 @@ const CardEditModal: React.FunctionComponent<CardEditModalProps> = ({
                   currentlyEditing.columnIndex !== undefined &&
                   currentlyEditing.index !== undefined
                 ) {
-                  deleteCard(
-                    currentlyEditing.id,
-                    currentlyEditing.columnIndex,
-                    currentlyEditing.index
-                  );
+                  if (
+                    window.confirm("Are you sure you want to delete this card")
+                  ) {
+                    deleteCard(
+                      currentlyEditing.id,
+                      currentlyEditing.columnIndex,
+                      currentlyEditing.index
+                    );
+                  }
                 }
               }}
             >

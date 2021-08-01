@@ -47,8 +47,6 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
   const [{ isOver }, drop] = useDrop({
     accept: itemTypes.CARD,
     hover: (item: itemType, monitor) => {
-      console.log("HOVERED OVER INDEX: " + props.index);
-      console.log("DRAGGED OVER INDEX: " + item.index);
       if (!dndRef.current) {
         return;
       }
