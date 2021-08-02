@@ -5,6 +5,7 @@ import { TasksContext } from "../../contexts/TasksContext";
 import itemTypes from "../../utils/itemType";
 import "./TaskCard.css";
 import DeleteIcon from "../../assets/DeleteIcon";
+import Priority from "../Priority";
 
 export interface TaskCardProps {
   title: string;
@@ -113,13 +114,13 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
               editCard(props.id, props.columnIndex, props.index);
             }
           }}
-          className="dnd-item bg-white w-full p-3 rounded shadow relative  cursor-pointer hover:bg-gray-100"
+          className="dnd-item bg-white w-full p-3 rounded shadow relative flex flex-col cursor-pointer hover:bg-gray-100"
         >
           <div className="flex">
             <div
               className={`${
                 props.title === "" ? "opacity-30 " : ""
-              } dnd-item__title text-md lg:text-xl font-bold`}
+              } dnd-item__title text-md lg:text-xl font-medium`}
             >
               {props.title === "" ? "Untitled" : props.title}
             </div>
@@ -127,9 +128,7 @@ const TaskCard: React.FunctionComponent<TaskCardProps> = (props) => {
           <div className="dnd-item__description text-sm lg:text-md my-2">
             {props.description}
           </div>
-          <div className="dnd-item__priority text-sm lg:text-md">
-            Priotiy : {props.priority}
-          </div>
+          <Priority priority={props.priority} />
         </div>
       </div>
     </div>

@@ -98,7 +98,7 @@ const CardEditModal: React.FunctionComponent<CardEditModalProps> = ({
               type="text"
               name="title"
               placeholder="Enter a title..."
-              className="font-bold w-full mt-1 rounded  p-1"
+              className="w-full mt-1 rounded  p-1"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
