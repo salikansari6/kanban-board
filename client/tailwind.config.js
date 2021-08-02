@@ -8,6 +8,7 @@ module.exports = {
         /^to-\w+/,
         /^via-\w+/,
         /^bg-\w+/,
+        /^text-\w+/,
       ],
     },
   },
