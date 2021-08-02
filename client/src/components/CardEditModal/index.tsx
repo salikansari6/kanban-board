@@ -120,13 +120,16 @@ const CardEditModal: React.FunctionComponent<CardEditModalProps> = ({
             <label htmlFor="priority" className="font-medium">
               Priority
             </label>
-            <input
-              type="text"
+            <select
               name="priority"
-              className="border w-full mt-1 border-black  p-1"
+              className="border ml-2 mt-1 border-black  p-1"
               value={priority}
               onChange={(e) => setPriority(e.target.value)}
-            />
+            >
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
           </div>
           <div className="buttons flex justify-end">
             <button
