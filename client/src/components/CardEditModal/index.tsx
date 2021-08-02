@@ -97,6 +97,7 @@ const CardEditModal: React.FunctionComponent<CardEditModalProps> = ({
             <input
               type="text"
               name="title"
+              placeholder="Enter a title..."
               className="font-bold w-full mt-1 rounded  p-1"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -109,6 +110,7 @@ const CardEditModal: React.FunctionComponent<CardEditModalProps> = ({
             <textarea
               rows={5}
               name="descrption"
+              placeholder="Enter a description...."
               className="w-full mt-1 text-base overflow-auto border-black  p-1"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
