@@ -66,9 +66,9 @@ const CardEditModal: React.FunctionComponent<CardEditModalProps> = ({
 
   return ReactDOM.createPortal(
     <div className="h-screen w-screen z-20 fixed top-0 left-0 right-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="modal-body text-2xl p-5 h-auto w-full mx-2 lg:mx-0 lg:w-1/2 bg-white rounded-lg shadow-lg">
+      <div className="modal-body text-2xl p-5 h-auto w-full mx-2 lg:mx-0 lg:w-1/3 bg-white shadow-lg">
         <form action="" className="" onSubmit={handleSubmit}>
-          <div className="input-group my-5    items-center">
+          <div className="input-group my-5 items-center">
             <button
               className="border border-gray-400 rounded-lg p-1 shadow float-right"
               onClick={(e) => {
@@ -97,7 +97,7 @@ const CardEditModal: React.FunctionComponent<CardEditModalProps> = ({
             <input
               type="text"
               name="title"
-              className="border w-full mt-1 border-black  p-1"
+              className="font-bold w-full mt-1 rounded  p-1"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
@@ -107,8 +107,9 @@ const CardEditModal: React.FunctionComponent<CardEditModalProps> = ({
               Description
             </label>
             <textarea
+              rows={5}
               name="descrption"
-              className="border w-full mt-1 border-black  p-1"
+              className="w-full mt-1 text-base overflow-auto border-black  p-1"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
