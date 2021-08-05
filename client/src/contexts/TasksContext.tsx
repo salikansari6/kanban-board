@@ -276,20 +276,26 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
   };
 
   const addColumn = (title: string) => {
+    const newColumn = {
+      title,
+      columnColor: "gray",
+      items: [],
+    };
     setTasks((oldList) => {
       const newTasks = JSON.parse(JSON.stringify(oldList));
-      const newColumn = {
-        title,
-        columnColor: "gray",
-        items: [],
-        columnIndex: oldList.length,
-      };
       console.log(newColumn);
       newTasks.push(newColumn);
-
-      console.log(newTasks);
       return newTasks;
     });
+    axios.post(
+      "/tasks/addColumn",
+      {
+        newColumn: newColumn,
+      },
+      {
+        withCredentials: true,
+      }
+    );
   };
 
   return (

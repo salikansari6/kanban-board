@@ -83,4 +83,12 @@ router.put("/moveColumn", isAuthenticated, async (req, res) => {
   res.json({ success: true });
 });
 
+router.post("/addColumn", isAuthenticated, async (req, res) => {
+  const taskCollection = await TaskCollection.findOne({
+    userId: req.user._id,
+  });
+  taskCollection.tasks.push(req.body.newColumn);
+  await taskCollection.save();
+});
+
 module.exports = router;
