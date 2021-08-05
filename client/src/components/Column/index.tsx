@@ -8,8 +8,8 @@ import CardComposer from "../CardComposer/index";
 import dynamicGradient from "../../utils/dynamicGradient";
 
 interface ToDoProps {
-  _id: string;
-  tasks: TaskCardProps[];
+  _id?: string;
+  items: TaskCardProps[];
   columnIndex: number;
   columnColor: string;
   title: string;
@@ -25,7 +25,7 @@ interface itemType {
   priority: string;
 }
 const Column: React.FunctionComponent<ToDoProps> = ({
-  tasks,
+  items,
   _id,
   columnIndex,
   columnColor,
@@ -46,7 +46,7 @@ const Column: React.FunctionComponent<ToDoProps> = ({
       }
       moveToColumn(item, item.columnIndex, columnIndex);
       item.columnIndex = columnIndex;
-      item.index = tasks.length;
+      item.index = items.length;
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -76,7 +76,7 @@ const Column: React.FunctionComponent<ToDoProps> = ({
           setShowCardComposer={setShowCardComposer}
         />
       )}
-      {tasks.map((task: TaskCardProps, index) => {
+      {items.map((task: TaskCardProps, index) => {
         return (
           <TaskCard
             key={task.id}

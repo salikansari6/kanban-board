@@ -33,6 +33,7 @@ export type TasksContextType = {
     newValues: newValuesType
   ) => void;
   deleteCard: (id: string, columnIndex: number, index: number) => void;
+  addColumn: (title: string) => void;
   tasks: TaskGroup[];
   showModal: boolean;
   currentlyEditing: currentlyEditingType;
@@ -70,6 +71,7 @@ export const TasksContext = React.createContext<TasksContextType>({
     columnIndex: 0,
     index: 0,
   },
+  addColumn: function (title: string) {},
 });
 
 export interface TaskGroup {
@@ -273,6 +275,23 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
       .then((res) => console.log(res.data));
   };
 
+  const addColumn = (title: string) => {
+    setTasks((oldList) => {
+      const newTasks = JSON.parse(JSON.stringify(oldList));
+      const newColumn = {
+        title,
+        columnColor: "gray",
+        items: [],
+        columnIndex: oldList.length,
+      };
+      console.log(newColumn);
+      newTasks.push(newColumn);
+
+      console.log(newTasks);
+      return newTasks;
+    });
+  };
+
   return (
     <TasksContext.Provider
       value={{
@@ -284,6 +303,7 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
         closeModal,
         editTask,
         deleteCard,
+        addColumn,
         showModal,
         tasks,
         currentlyEditing,
