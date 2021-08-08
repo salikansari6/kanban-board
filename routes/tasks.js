@@ -92,15 +92,14 @@ router.post("/addColumn", isAuthenticated, async (req, res) => {
 });
 
 router.delete("/deleteColumn", async (req, res) => {
-  console.log(req.body.id);
   const taskCollection = await TaskCollection.findOne({
-    userId: "60ec1ecaa4c3e73eb9224dcb",
+    userId: req.user._id,
   });
   taskCollection.tasks = taskCollection.tasks.filter((column) => {
-    return column._id !== req.body.id;
+    return column._id != req.body.id;
   });
   await taskCollection.save();
-  res.send(taskCollection);
+  res.json({ success: true });
 });
 
 module.exports = router;

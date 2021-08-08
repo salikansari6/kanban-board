@@ -320,6 +320,15 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
       });
       return newTasks;
     });
+
+    axios
+      .delete("/tasks/deleteColumn", {
+        data: {
+          id: id,
+        },
+        withCredentials: true,
+      })
+      .then((res) => console.log(res.data));
   };
 
   return (
