@@ -37,6 +37,7 @@ export type TasksContextType = {
   tasks: TaskGroup[];
   showModal: boolean;
   currentlyEditing: currentlyEditingType;
+  loadingCards: boolean;
 };
 
 export const TasksContext = React.createContext<TasksContextType>({
@@ -66,6 +67,7 @@ export const TasksContext = React.createContext<TasksContextType>({
   deleteCard: function (id: string, columnIndex: number, index: number) {},
   tasks: [],
   showModal: false,
+  loadingCards: false,
   currentlyEditing: {
     id: "",
     columnIndex: 0,
@@ -84,6 +86,7 @@ export interface TaskGroup {
 const TasksContextProvider: React.FunctionComponent = ({ children }) => {
   const [tasks, setTasks] = useState<TaskGroup[]>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [loadingCards, setLoadingCards] = useState(false);
   const [currentlyEditing, setCurrentlyEditing] = useState({
     id: "",
     columnIndex: 0,
@@ -91,12 +94,14 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
   });
 
   useEffect(() => {
+    setLoadingCards(true);
     axios
       .get("/tasks", {
         withCredentials: true,
       })
       .then((res) => {
         setTasks(res.data[0].tasks);
+        setLoadingCards(false);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -313,6 +318,7 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
         showModal,
         tasks,
         currentlyEditing,
+        loadingCards,
       }}
     >
       {children}

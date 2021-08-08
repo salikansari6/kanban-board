@@ -4,12 +4,12 @@ import { TaskGroup, TasksContext } from "../../contexts/TasksContext";
 import withScrolling from "react-dnd-scrolling";
 import CardEditModal from "../CardEditModal";
 import ColumnComposer from "../ColumnComposer/index";
+import { Preloader, Spinner } from "react-preloader-tmnt";
 
 const ScrollingComponent = withScrolling("div");
 const Kanban: React.FunctionComponent = () => {
-  const { tasks, showModal, currentlyEditing } = useContext(TasksContext);
-
-  console.log(tasks);
+  const { tasks, showModal, currentlyEditing, loadingCards } =
+    useContext(TasksContext);
 
   return (
     <ScrollingComponent className="kanban p-5 h-full flex flex-col items-start  overflow-x-scroll">
@@ -30,6 +30,7 @@ const Kanban: React.FunctionComponent = () => {
         <ColumnComposer />
         {showModal && <CardEditModal currentlyEditing={currentlyEditing} />}
       </div>
+      <Preloader loading={loadingCards} color="#1F2937" />
     </ScrollingComponent>
   );
 };
