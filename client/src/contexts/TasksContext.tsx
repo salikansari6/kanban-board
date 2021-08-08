@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { TaskCardProps } from "../components/TaskCard";
+import { ToDoProps } from "../components/Column";
 import { v4 as uuid } from "uuid";
 import { currentlyEditingType } from "../components/CardEditModal";
 
@@ -34,6 +35,7 @@ export type TasksContextType = {
   ) => void;
   deleteCard: (id: string, columnIndex: number, index: number) => void;
   addColumn: (title: string) => void;
+  deleteColumn: (id: string) => void;
   tasks: TaskGroup[];
   showModal: boolean;
   currentlyEditing: currentlyEditingType;
@@ -74,9 +76,11 @@ export const TasksContext = React.createContext<TasksContextType>({
     index: 0,
   },
   addColumn: function (title: string) {},
+  deleteColumn: function (id: string) {},
 });
 
 export interface TaskGroup {
+  id?: string;
   _id: string;
   title: string;
   columnColor: string;
@@ -87,6 +91,7 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
   const [tasks, setTasks] = useState<TaskGroup[]>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [loadingCards, setLoadingCards] = useState(false);
+  const [showSavingTransactions, setShowSavingTransactions] = useState(false);
   const [currentlyEditing, setCurrentlyEditing] = useState({
     id: "",
     columnIndex: 0,
@@ -282,13 +287,13 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
 
   const addColumn = (title: string) => {
     const newColumn = {
+      id: uuid(),
       title,
       columnColor: "gray",
       items: [],
     };
     setTasks((oldList) => {
       const newTasks = JSON.parse(JSON.stringify(oldList));
-      console.log(newColumn);
       newTasks.push(newColumn);
       return newTasks;
     });
@@ -303,6 +308,21 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
     );
   };
 
+  const deleteColumn = (id: string) => {
+    console.log(id);
+    setTasks((oldList) => {
+      let newTasks = JSON.parse(JSON.stringify(oldList));
+      newTasks = newTasks.filter((column: ToDoProps) => {
+        if (column.id) {
+          return column.id !== id;
+        } else {
+          return column._id !== id;
+        }
+      });
+      return newTasks;
+    });
+  };
+
   return (
     <TasksContext.Provider
       value={{
@@ -315,6 +335,7 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
         editTask,
         deleteCard,
         addColumn,
+        deleteColumn,
         showModal,
         tasks,
         currentlyEditing,

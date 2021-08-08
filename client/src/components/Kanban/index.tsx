@@ -18,6 +18,7 @@ const Kanban: React.FunctionComponent = () => {
         {tasks.map((col, index) => {
           return (
             <Column
+              id={col.id}
               _id={col._id}
               columnColor={col.columnColor}
               key={col._id}
