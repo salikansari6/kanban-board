@@ -91,7 +91,6 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
   const [tasks, setTasks] = useState<TaskGroup[]>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [loadingCards, setLoadingCards] = useState(false);
-  const [showSavingTransactions, setShowSavingTransactions] = useState(false);
   const [currentlyEditing, setCurrentlyEditing] = useState({
     id: "",
     columnIndex: 0,

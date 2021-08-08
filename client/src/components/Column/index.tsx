@@ -75,6 +75,7 @@ const Column: React.FunctionComponent<ToDoProps> = ({
           <ul className="bg-white p-2 rounded shadow border border-gray-800">
             <li>
               <button
+                className="focus:outline-none"
                 onClick={() => {
                   if (id !== undefined) {
                     deleteColumn(id);
