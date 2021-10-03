@@ -8,6 +8,7 @@ const User = require("./models/User");
 const TaskCollection = require("./models/TaskCollection");
 const app = express();
 const path = require("path");
+const jwt = require("jsonwebtoken");
 
 require("dotenv").config();
 app.use(express.json());
@@ -27,7 +28,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true }, () => {
   console.log("connected to DB");
@@ -118,9 +119,19 @@ app.get(
   "/auth/google/callback/",
   passport.authenticate("google", { failureRedirect: "/failed" }),
   function (req, res) {
+    const token = jwt.sign(
+      {
+        id: req.user._id,
+      },
+      process.env.JWT_SECRET
+    );
+    console.log("Making Token " + token);
     // Successful authentication, redirect home.
     if (process.env.NODE_ENV === "development") {
-      res.redirect(`${process.env.CORS_ORIGIN}/kanban`);
+      res.redirect(`${process.env.CORS_ORIGIN}/getToken?token=${token}`);
+    } else if (process.env.NODE_ENV === "mobile") {
+      console.log("passed");
+      res.redirect(`boardliaapp://boardliaapp.io?token=${token}`);
     } else {
       res.redirect("/kanban");
     }

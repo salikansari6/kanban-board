@@ -131,7 +131,9 @@ const TasksContextProvider: React.FunctionComponent = ({ children }) => {
           cardId: id,
           columnIndex,
         },
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
       })
       .then((res) => console.log(res.data));
   };

@@ -13,6 +13,7 @@ import { usePreview } from "react-dnd-preview";
 import Navbar from "./components/Navbar";
 import TaskCard from "./components/TaskCard";
 import CardDragPreview from "./components/CardDragPreview";
+import GetToken from "./pages/GetToken";
 
 const CardPreview = () => {
   const { display, itemType, item, style } = usePreview();
@@ -46,6 +47,7 @@ function App() {
             <Navbar />
             <Switch>
               <Route exact path="/" component={Homepage} />
+              <Route exact path="/getToken" component={GetToken} />
               <Route exact path="/kanban" component={() => <Kanban />} />
               <Route exact path="/login" component={Login} />
             </Switch>
