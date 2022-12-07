@@ -133,7 +133,7 @@ app.get(
       console.log("passed");
       res.redirect(`boardliaapp://boardliaapp.io?token=${token}`);
     } else {
-      res.redirect("/kanban");
+      res.redirect(`/getToken?token=${token}`);
     }
   }
 );
